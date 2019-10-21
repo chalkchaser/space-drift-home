@@ -1,0 +1,51 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://stages/RigidBody2D.gd" type="Script" id=1]
+[ext_resource path="res://art_entities/slime0000.png" type="Texture" id=2]
+[ext_resource path="res://art_entities/slime0002.png" type="Texture" id=3]
+[ext_resource path="res://art_entities/slime0001.png" type="Texture" id=4]
+[ext_resource path="res://art_entities/slime0003.png" type="Texture" id=5]
+[ext_resource path="res://art_entities/slime0004.png" type="Texture" id=6]
+[ext_resource path="res://art_entities/slime0005.png" type="Texture" id=7]
+[ext_resource path="res://art_entities/slime0006.png" type="Texture" id=8]
+[ext_resource path="res://art_entities/slime0007.png" type="Texture" id=9]
+[ext_resource path="res://art_effects/slime_shadows.png" type="Texture" id=10]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "idle",
+"speed": 1.5
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "jumping",
+"speed": 6.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 5.96693
+height = 6.19236
+
+[node name="Slime" type="KinematicBody2D" groups=[
+"enemies",
+]]
+collision_layer = 3
+script = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0.641293, -9.31837 )
+z_index = 1
+frames = SubResource( 1 )
+animation = "idle"
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 1.05086, -0.269981 )
+rotation = 1.5708
+shape = SubResource( 2 )
+
+[node name="Shadow" type="Sprite" parent="."]
+position = Vector2( 1.44888, -1.94326 )
+texture = ExtResource( 10 )
