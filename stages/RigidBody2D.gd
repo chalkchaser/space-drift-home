@@ -3,7 +3,7 @@ extends KinematicBody2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-export var life = 12
+export var life = 8
 var wait_time = 0.5 #time before jump
 var jump_duration_time = 0.834
 var timer
@@ -69,23 +69,26 @@ func _is_hit():
 		#queue_free()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):		
-	direction = ((get_parent().get_node("Player").get_node("Shadow").get_global_position() - self.get_global_position()  ).normalized())
-	if(can_jump == true):
-		velocity = lerp(velocity,Vector2(0,0),0.05)
-		move_and_slide(velocity,direction *4,false,4,0.785398,false)
-		for index in get_slide_count():
-			var collision = get_slide_collision(index)
-			if collision.collider.is_in_group("players"):
-				if(index == 0): #prevents multiple hits
-					collision.collider._is_hit()
-	else:	
-		velocity = direction *6 #walk speed
-		move_and_slide(velocity,Vector2(0,0),false,4,0.785398,false)
-		for index in get_slide_count():
-			var collision = get_slide_collision(index)
-			if collision.collider.is_in_group("players"):
-				if(index == 0): #prevents multiple hits
-					collision.collider._is_hit()
+	var vector_to_player = ((get_parent().get_node("Player").get_node("Shadow").get_global_position() - self.get_global_position()  ))
+	var distance = vector_to_player.length()
+	direction = vector_to_player.normalized()
+	if(distance<240):
+		if(can_jump == true):
+			velocity = lerp(velocity,Vector2(0,0),0.05)
+			move_and_slide(velocity,direction *4,false,4,0.785398,false)
+			for index in get_slide_count():
+				var collision = get_slide_collision(index)
+				if collision.collider.is_in_group("players"):
+					if(index == 0): #prevents multiple hits
+						collision.collider._is_hit()
+		else:	
+			velocity = direction *6 #walk speed
+			move_and_slide(velocity,Vector2(0,0),false,4,0.785398,false)
+			for index in get_slide_count():
+				var collision = get_slide_collision(index)
+				if collision.collider.is_in_group("players"):
+					if(index == 0): #prevents multiple hits
+						collision.collider._is_hit()
 		
 		
 	

@@ -5,7 +5,7 @@ extends Node2D
 # var b = "text"
 var world_size = 128
 var matrix = []
-var born_alive_chance = 0.5
+var born_alive_chance = 0.55
 var death_limit = 3
 var birth_limit = 4
 var tilemap 
@@ -138,12 +138,11 @@ func _count_alive_neighbours(matrix,x,y):
 					if !(i== x and j == y):
 						count = count +1		
 	return count	
-	
 func set_enemy(matrix):
 	for x in range(len(matrix)):
 		for y in range(len(matrix[x])):
 			if(matrix[x][y] == 1):
-				if(randf()< 0.02):
+				if(randf()< 0.01):
 					matrix[x][y] = 2
 					
 	
