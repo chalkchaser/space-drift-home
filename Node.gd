@@ -8,7 +8,11 @@ var right = null
 var center_coordinate = null
 var matrix = []
 var binary_tree = load("res://generation/BinaryTree.tscn")
-# Called when the node enters the scene tree for the first time.
+
+
+# Binary tree which holds map data of type matrix
+# Automatically asserts center coordinate of the matrix which it is given for later use in pathfinding
+
 
 func _ready():
 	var test_matrix = [[0,1,0,1],[0,1,1,1],[0,1,1,1]]
@@ -22,7 +26,7 @@ func _ready():
 func add_left_child(matrix):
 	var new_node = binary_tree.instance()
 	new_node.matrix = matrix
-	new_node.center_coordinate = [(len(matrix))/2,(len(matrix[0]))/2]
+	new_node.center_coordinate = [(len(matrix))/2,(len(matrix[0]))/2] 
 	left = new_node
 	
 

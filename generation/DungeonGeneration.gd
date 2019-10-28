@@ -8,8 +8,12 @@ var matrix = []
 var born_alive_chance = 0.45
 var death_limit = 3
 var birth_limit = 4
+var tilemap 
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	tilemap = get_node("TileMap")
 	randomize()
 	empty_matrix()
 	_set_random_alive(matrix)	
@@ -20,6 +24,7 @@ func _ready():
 	_flood_fill(matrix,1,8)
 	test_print(matrix)
 	test_print((binary_partition_cut_horizontally(matrix,0,0,1)))
+	test_print((binary_partition_cut_vertically(matrix,0,0,1)))
 
 
 func empty_matrix():
@@ -85,10 +90,7 @@ func binary_partition_cut_horizontally(matrix,origin_x, origin_y, steps ):
 	var cutting_point
 	var matrix_list = []
 	var rng = RandomNumberGenerator.new()
-	print(width)
-	print(height)
 	var cutter =  int(rng.randf_range( lower_bound, upper_bound ) * width)
-	print(cutter)
 	var temp_matrix_1 = []
 	var temp_matrix_2 = []
 	
@@ -99,7 +101,31 @@ func binary_partition_cut_horizontally(matrix,origin_x, origin_y, steps ):
 	matrix_list.append( [temp_matrix_1, origin_x, origin_y])
 	matrix_list.append( [temp_matrix_2, cutter, origin_y]) 
 	return matrix_list
-				
+	
+func binary_partition_cut_vertically(matrix,origin_x, origin_y, steps ):	
+	var width = len(matrix)
+	var height = len(matrix[0])
+	var lower_bound = 0.2 # gauss?
+	var upper_bound = 0.8
+	var cutting_point
+	var matrix_list = []
+	var rng = RandomNumberGenerator.new()
+	var cutter =  int(rng.randf_range( lower_bound, upper_bound ) * height)
+	var temp_matrix_1 = []
+	var temp_matrix_2 = []
+	
+	for x in range(0, width):
+		temp_matrix_1.append([])
+		temp_matrix_2.append([])
+		for y in range(0,cutter):
+			temp_matrix_1[x].append(matrix[x][y])
+		for y in range(cutter, height):
+			temp_matrix_2[x].append(matrix[x][y])
+	matrix_list.append( [temp_matrix_1, origin_x, origin_y])
+	matrix_list.append( [temp_matrix_2, cutter, origin_y]) 
+	return matrix_list		
+			
+	
 	
 func _count_alive_neighbours(matrix,x,y):
 	var count = 0 # TODO negate counting self
