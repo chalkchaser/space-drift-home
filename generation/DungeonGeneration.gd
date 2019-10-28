@@ -3,9 +3,9 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var world_size = 10
+var world_size = 128
 var matrix = []
-var born_alive_chance = 0.45
+var born_alive_chance = 0.5
 var death_limit = 3
 var birth_limit = 4
 var tilemap 
@@ -14,18 +14,20 @@ var tilemap
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	tilemap = get_node("TileMap")
+	
 	randomize()
 	empty_matrix()
 	_set_random_alive(matrix)	
 	_do_simulation_step(matrix)
 
 	matrix = _do_simulation_step(matrix)
+	matrix = _do_simulation_step(matrix)
+	matrix = _do_simulation_step(matrix)
 	#test_print(matrix)
 	_flood_fill(matrix,1,8)
 	test_print(matrix)
-	test_print((binary_partition_cut_horizontally(matrix,0,0,1)))
-	test_print((binary_partition_cut_vertically(matrix,0,0,1)))
-
+	set_enemy(matrix)
+	tilemap.draw_map(matrix)
 
 func empty_matrix():
 	for x in range(world_size):
@@ -136,6 +138,14 @@ func _count_alive_neighbours(matrix,x,y):
 					if !(i== x and j == y):
 						count = count +1		
 	return count	
+	
+func set_enemy(matrix):
+	for x in range(len(matrix)):
+		for y in range(len(matrix[x])):
+			if(matrix[x][y] == 1):
+				if(randf()< 0.02):
+					matrix[x][y] = 2
+					
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
