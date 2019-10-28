@@ -3,7 +3,7 @@ extends KinematicBody2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-export var life = 8
+export var life = 12
 var wait_time = 0.5 #time before jump
 var jump_duration_time = 0.834
 var timer
@@ -35,7 +35,7 @@ func _ready():
 	
 	idle_timer = Timer.new()
 	idle_timer.set_one_shot(true)
-	idle_timer.set_wait_time(before_jump_time)
+	idle_timer.set_wait_time(rand_range(before_jump_time-0.5,before_jump_time+0.5))
 	idle_timer.connect("timeout",self,"_idle")
 	add_child(idle_timer)
 	print("added timer")
@@ -53,29 +53,39 @@ func _jump():
 	#apply_impulse(Vector2(0,0),vector_to_reach)
 	#move_and_slide(vector_to_reach,Vector2(0,0),false,4,0.785398,false)
 	can_jump = true
-	velocity = direction * 200
+	velocity = direction * 250
 	jump_duration_timer.start()
 	
 func _stop_jump():
-
+	idle_timer.set_wait_time(rand_range(before_jump_time-0.5,before_jump_time+0.5))
 	can_jump = false
 	get_node("AnimatedSprite").play("idle")
 	idle_timer.start()
 
 func _is_hit():
 	life -= 1
-	print(life)
-	if (life <= 0):
+	if(life<=0):
 		queue_free()
+		#queue_free()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):		
-	direction = ((get_parent().get_node("Player").get_node("Shadow").get_global_position() - get_parent().get_node("Slime").get_global_position()  ).normalized())
+	direction = ((get_parent().get_node("Player").get_node("Shadow").get_global_position() - self.get_global_position()  ).normalized())
 	if(can_jump == true):
 		velocity = lerp(velocity,Vector2(0,0),0.05)
 		move_and_slide(velocity,direction *4,false,4,0.785398,false)
+		for index in get_slide_count():
+			var collision = get_slide_collision(index)
+			if collision.collider.is_in_group("players"):
+				if(index == 0): #prevents multiple hits
+					collision.collider._is_hit()
 	else:	
-		velocity = direction *4 #walk speed
+		velocity = direction *6 #walk speed
 		move_and_slide(velocity,Vector2(0,0),false,4,0.785398,false)
+		for index in get_slide_count():
+			var collision = get_slide_collision(index)
+			if collision.collider.is_in_group("players"):
+				if(index == 0): #prevents multiple hits
+					collision.collider._is_hit()
 		
 		
 	

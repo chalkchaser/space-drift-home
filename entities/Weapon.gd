@@ -72,11 +72,12 @@ func _shoot():
 		new_bullet.position = stage.get_node("Player").get_node("WeaponPosition").get_global_position()
 		var current_player_pos = get_parent().get_parent().get_global_position()
 		direction = (get_parent().get_global_mouse_position()-current_player_pos).normalized()
+		direction = direction.rotated(rand_range(-0.0,0.0))
 		new_bullet._set_move(direction * shot_speed)
 		get_parent().get_parent().position = get_parent().get_parent().position  - direction * 0.25 #moves the player back against direction of shot in pixeö
 		can_shoot = false
 		delay_timer.start()
-		get_node("muzzle").position = get_node("Sprite").position
+		get_node("muzzle").position = get_parent().get_global_position()
 		get_node("muzzle").visible = true
 		muzzle_timer.start()
 		get_node("AudioStreamPlayer").play()
