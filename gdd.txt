@@ -1,0 +1,52 @@
+space capsule stage:
+
+
+resources
+
+    player health
+        being well satiated gives health over time
+    player satiation(hunger)
+        reduction to 0 equals health reduction instead
+        below 50 slows down player
+        can be increased by eating food
+        
+    player radiation (in percent)
+        gives random negative effects on 25, 50 , 75, 100
+            take more damage on hit
+            reduced gun accuracy
+            dazed on every hit
+            shaders(blind)
+        can be increased by eating radiated food
+        can be decreased by consuming slime
+        can be reduced by upgrading ship
+        
+        
+        
+    drone health
+    
+    capsule hull
+
+
+GUI
+    bar which displays planets and next wormhole
+    display of resources
+    interactive textbox for event choices
+    a
+ events 
+    simple:
+        radiation
+        hull damage event(asteroids)
+    play:
+        dungeon
+            slime
+            world with base
+            spacecraft event
+                enemy ship
+                capsule invasion
+                help
+                medic
+            shop event
+            asteroid destroy event
+            
+ 
+    
