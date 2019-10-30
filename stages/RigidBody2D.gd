@@ -22,7 +22,6 @@ func _ready():
 	timer.set_wait_time(wait_time)
 	timer.connect("timeout",self,"_jump")
 	add_child(timer)
-	print("added timer")
 
 	
 	jump_duration_timer = Timer.new()
@@ -30,7 +29,6 @@ func _ready():
 	jump_duration_timer.set_wait_time(jump_duration_time)
 	jump_duration_timer.connect("timeout",self,"_stop_jump")
 	add_child(jump_duration_timer)
-	print("added timer")
 	#timer.start()
 	
 	idle_timer = Timer.new()
@@ -38,8 +36,6 @@ func _ready():
 	idle_timer.set_wait_time(rand_range(before_jump_time-0.5,before_jump_time+0.5))
 	idle_timer.connect("timeout",self,"_idle")
 	add_child(idle_timer)
-	print("added timer")
-	#timer.start()
 	_stop_jump()
 
 func _idle():

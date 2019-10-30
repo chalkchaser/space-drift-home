@@ -12,6 +12,7 @@ var life = 5
 var invincibility_timer
 var invincibility_time   = 1.2
 var invincible = false
+var health = 100
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	invincibility_timer = Timer.new()
@@ -60,9 +61,13 @@ func _process(delta):
 func _is_hit():
 	if(not invincible):
 		life = life - 1	
+		health = health -20
+		get_parent().get_node("Interface").get_node("TextureProgress")._set_value(health)
 		print(life)
 	invincibility_timer.start()
 	invincible = true
+	
+
 
 func _stop_invincibility():
 	invincible = false

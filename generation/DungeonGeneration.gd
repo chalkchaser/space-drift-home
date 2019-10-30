@@ -3,7 +3,7 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var world_size = 128
+var world_size = 164
 var matrix = []
 var born_alive_chance = 0.55
 var death_limit = 3

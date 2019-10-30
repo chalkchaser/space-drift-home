@@ -5,8 +5,9 @@ onready var player = get_parent().get_node("Player")
 var x_to_reach
 var y_to_reach
 var vector_to_reach
+
 func _ready():
-	pass # Replace with function body.
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
