@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://entities/Weapon.gd" type="Script" id=1]
+[ext_resource path="res://weapons/Handgun.gd" type="Script" id=1]
 [ext_resource path="res://art_entities/weapon_gun_simple.png" type="Texture" id=2]
 [ext_resource path="res://art_effects/bullet_simple_muzzle.png" type="Texture" id=3]
 [ext_resource path="res://sound_bullet.wav" type="AudioStream" id=4]

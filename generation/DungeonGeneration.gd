@@ -5,7 +5,7 @@ extends Node2D
 # var b = "text"
 var world_size = 164
 var matrix = []
-var born_alive_chance = 0.55
+var born_alive_chance = 0.45
 var death_limit = 3
 var birth_limit = 4
 var tilemap 
@@ -23,12 +23,10 @@ func _ready():
 	matrix = _do_simulation_step(matrix)
 	matrix = _do_simulation_step(matrix)
 	matrix = _do_simulation_step(matrix)
-	#test_print(matrix)
 	_flood_fill(matrix,1,8)
-	test_print(matrix)
 	set_enemy(matrix)
 	tilemap.draw_map(matrix)
-
+	test_print(matrix)
 func empty_matrix():
 	for x in range(world_size):
 			matrix.append([])

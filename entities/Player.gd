@@ -8,7 +8,6 @@ var screen_size_x = 180
 var screen_size_y = 320
 var flipped = false 
 var size_to_grow_to 
-var life = 5
 var invincibility_timer
 var invincibility_time   = 1.2
 var invincible = false
@@ -60,11 +59,10 @@ func _process(delta):
 
 func _is_hit():
 	if(not invincible):
-		life = life - 1	
+		print("hit")
 		health = health -20
 		get_parent().get_node("Interface").get_node("TextureProgress")._set_value(health)
-		print(life)
-	invincibility_timer.start()
+		invincibility_timer.start()
 	invincible = true
 	
 

@@ -19,6 +19,10 @@ config/name="SpaceDriftHome"
 run/main_scene="res://stages/Demo.tscn"
 config/icon="res://art_environment/icon.png"
 
+[autoload]
+
+Inventory="*res://Inventory.tscn"
+
 [display]
 
 window/size/width=320

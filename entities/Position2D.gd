@@ -6,10 +6,26 @@ extends Position2D
 var player_position
 var distance_to_player = 14
 var past_position
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+#var weapon = preload("res://weapons/Shotgun.tscn")
+#var weapon_2 = preload("res://weapons/Handgun.tscn")
 
+
+
+func _ready():		
+	print(Inventory.get_children())
+	var temp = Inventory.get_child(0)
+	Inventory.remove_child(temp)
+	add_child(temp)
+	temp.set_process(true)
+	
+	print(Inventory.get_children())
+	#self.add_child(Inventory.get_child(1))
+	#add_child(Inventory.ge)
+	
+	
+	
+func set_distance_to_player(distance):
+	distance_to_player = distance
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	player_position = get_parent().get_global_position() 

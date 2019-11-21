@@ -1,14 +1,12 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://entities/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://art_environment/icon.png" type="Texture" id=2]
-[ext_resource path="res://art_effects/CamaraObject.tscn" type="PackedScene" id=3]
+[ext_resource path="res://art_effects/CameraObject.tscn" type="PackedScene" id=3]
 [ext_resource path="res://entities/EnvironmentObject.gd" type="Script" id=4]
 [ext_resource path="res://art_entities/mushroom.png" type="Texture" id=5]
 [ext_resource path="res://entities/Slime.tscn" type="PackedScene" id=6]
-[ext_resource path="res://interface/health_border.png" type="Texture" id=7]
-[ext_resource path="res://interface/health_colour.png" type="Texture" id=8]
-[ext_resource path="res://stages/TextureProgress.gd" type="Script" id=9]
+[ext_resource path="res://interface/Interface.tscn" type="PackedScene" id=7]
 
 [node name="DemoStage" type="Node"]
 
@@ -22,7 +20,7 @@ position = Vector2( 233.96, 19.8723 )
 scale = Vector2( 0.383653, 0.366766 )
 texture = ExtResource( 2 )
 
-[node name="CamaraObject" parent="." instance=ExtResource( 3 )]
+[node name="CameraObject" parent="." instance=ExtResource( 3 )]
 
 [node name="EnvironmentObject" type="KinematicBody2D" parent="."]
 position = Vector2( 112.785, 72.6215 )
@@ -34,14 +32,4 @@ texture = ExtResource( 5 )
 
 [node name="Slime" parent="." instance=ExtResource( 6 )]
 
-[node name="Interface" type="CanvasLayer" parent="."]
-
-[node name="TextureProgress" type="TextureProgress" parent="Interface"]
-margin_left = 4.71562
-margin_top = 1.66434
-margin_right = 89.7156
-margin_bottom = 41.6643
-value = 100.0
-texture_over = ExtResource( 7 )
-texture_progress = ExtResource( 8 )
-script = ExtResource( 9 )
+[node name="Interface" parent="." instance=ExtResource( 7 )]
