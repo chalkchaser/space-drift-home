@@ -18,4 +18,11 @@ func _process(delta):
 		is_open = true
 	else:
 		is_open = false	
+	
+	
+func refresh():
+	get_node("ItemList").refresh()
 
+
+func _on_ItemList_item_activated(index):
+	get_tree().get_root().get_node("DemoStage").get_node("Player").switch_weapon(index)

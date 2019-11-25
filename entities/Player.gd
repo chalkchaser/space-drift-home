@@ -79,3 +79,7 @@ func _restore_size(delta):
 	else: 
 		get_node("AnimatedSprite").show()
 	
+
+func switch_weapon(weapon_index):
+	get_node("WeaponPosition").switch_weapon(weapon_index)
+

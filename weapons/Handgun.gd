@@ -35,28 +35,30 @@ func _ready():
 	#pass
     	
 func _process(delta):
+	if(get_parent().has_method("set_distance_to_player")):
+		get_parent().set_distance_to_player(14)
+	
 	#player_position = get_parent().get_position()
 	if(!Interface.get_node("InventoryWindow").is_open):
 		if Input.is_action_pressed("ui_left_mouse_click"):
 			_shoot()
-		get_node("Sprite").position = get_parent().get_global_position()
 		#get_node("Sprite").look_at(get_parent().get_global_mouse_position())
-		if get_parent().get_parent().has_method("get_global_position"):
-			var player_xy =get_parent().get_parent().get_global_position()
-			var cursor_xy = get_parent().get_global_mouse_position()
-			var player_to_cursor =    cursor_xy - player_xy 
-			var base_vector = Vector2(1,0)
-			var cosinus = (player_to_cursor.x * base_vector.x + player_to_cursor.y * base_vector.y) / (sqrt(pow(player_to_cursor.x,2) + pow(player_to_cursor.y,2)))
-			if(cursor_xy.y > player_xy.y):
-				get_node("Sprite").rotation = (acos( cosinus)) 
-				get_node("Sprite").z_index = 2
-			else: 
-				get_node("Sprite").rotation = -(acos(cosinus)) 
-				get_node("Sprite").z_index = 0
-			#get_node("Sprite").flip_h = true
-			get_node("Sprite").flip_v = get_parent().get_parent().flipped
-			get_node("Sprite").scale = (get_node("Sprite").get_scale()).linear_interpolate(size_to_grow_to, 0.05)
-			
+	if (get_parent().get_parent().name == "Player"):
+		var player_xy =get_parent().get_parent().get_global_position()
+		var cursor_xy = get_parent().get_global_mouse_position()
+		var player_to_cursor =    cursor_xy - player_xy 
+		var base_vector = Vector2(1,0)
+		var cosinus = (player_to_cursor.x * base_vector.x + player_to_cursor.y * base_vector.y) / (sqrt(pow(player_to_cursor.x,2) + pow(player_to_cursor.y,2)))
+		if(cursor_xy.y > player_xy.y):
+			get_node("Sprite").rotation = (acos( cosinus)) 
+			get_node("Sprite").z_index = 2
+		else: 
+			get_node("Sprite").rotation = -(acos(cosinus)) 
+			get_node("Sprite").z_index = 0
+		#get_node("Sprite").flip_h = true
+		get_node("Sprite").flip_v = get_parent().get_parent().flipped
+		get_node("Sprite").scale = (get_node("Sprite").get_scale()).linear_interpolate(size_to_grow_to, 0.05)
+		get_node("Sprite").position = get_parent().get_global_position()		
 			
 		
 

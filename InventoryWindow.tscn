@@ -35,3 +35,4 @@ max_columns = 2
 fixed_column_width = 58
 fixed_icon_size = Vector2( 8, 8 )
 script = ExtResource( 4 )
+[connection signal="item_activated" from="ItemList" to="." method="_on_ItemList_item_activated"]
