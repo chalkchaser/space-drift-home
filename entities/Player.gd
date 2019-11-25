@@ -24,20 +24,22 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
 	size_to_grow_to = Vector2(1,1)
 	_restore_size(delta)
-
 	var velocity = Vector2()
-	flipped = get_global_mouse_position().x < position.x
-	
-	if Input.is_action_pressed("ui_left"):
-		velocity.x -= 1
-	if Input.is_action_pressed("ui_up"):
-		velocity.y -= 1
-	if Input.is_action_pressed("ui_down"):
-		velocity.y += 1
-	if Input.is_action_pressed("ui_right"):
-		velocity.x += 1
+	if(!Interface.get_node("InventoryWindow").is_open):
+
+		flipped = get_global_mouse_position().x < position.x
+		
+		if Input.is_action_pressed("ui_left"):
+			velocity.x -= 1
+		if Input.is_action_pressed("ui_up"):
+			velocity.y -= 1
+		if Input.is_action_pressed("ui_down"):
+			velocity.y += 1
+		if Input.is_action_pressed("ui_right"):
+			velocity.x += 1
 		
 	$AnimatedSprite.flip_h = (flipped)	
 	if velocity.length() > 0:
@@ -50,7 +52,7 @@ func _process(delta):
 		else:$AnimatedSprite.play("walking_right")
 	else: $AnimatedSprite.play("right_facing")
 	move_and_slide(velocity,Vector2(0,0),false,4,0.785398,false)
-	
+
 	if(invincible):
 		self.modulate.a = 0.4 if (Engine.get_frames_drawn() / 8) % 2 == 0 else 1.0
 	else:
@@ -59,9 +61,8 @@ func _process(delta):
 
 func _is_hit():
 	if(not invincible):
-		print("hit")
 		health = health -20
-		get_parent().get_node("Interface").get_node("TextureProgress")._set_value(health)
+		Interface.get_node("TextureProgress")._set_value(health)
 		invincibility_timer.start()
 	invincible = true
 	

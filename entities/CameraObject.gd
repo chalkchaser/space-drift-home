@@ -20,8 +20,9 @@ func _process(delta):
 	x_to_reach = (3*player.position.x + mouse_position.x)/4 -155 #not exact
 	y_to_reach = (3*player.position.y + mouse_position.y)/4-70  #values
 	vector_to_reach = Vector2(x_to_reach,y_to_reach)
-	position = position.linear_interpolate(vector_to_reach,0.2)
-	
+	if(!Interface.get_node("InventoryWindow").is_open):
+		position = position.linear_interpolate(vector_to_reach,0.2)
+		
 	
 	if(shake == true):
 		get_node("Camera2D").set_offset(Vector2( 

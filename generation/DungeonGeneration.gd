@@ -26,7 +26,7 @@ func _ready():
 	_flood_fill(matrix,1,8)
 	set_enemy(matrix)
 	tilemap.draw_map(matrix)
-	test_print(matrix)
+	#test_print(matrix)
 func empty_matrix():
 	for x in range(world_size):
 			matrix.append([])

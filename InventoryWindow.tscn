@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Inventory.png" type="Texture" id=1]
+[ext_resource path="res://InventoryWindow.gd" type="Script" id=2]
+[ext_resource path="res://manaspace.tres" type="DynamicFont" id=3]
+[ext_resource path="res://ItemList.gd" type="Script" id=4]
+
+[sub_resource type="Theme" id=1]
+default_font = ExtResource( 3 )
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[node name="InventoryWindow" type="Sprite"]
+modulate = Color( 0.996078, 0.996078, 0.996078, 1 )
+position = Vector2( 250.399, 42.4714 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ItemList" type="ItemList" parent="."]
+margin_left = -64.4941
+margin_top = -35.1806
+margin_right = 85.5059
+margin_bottom = 36.8194
+theme = SubResource( 1 )
+custom_styles/bg_focus = SubResource( 2 )
+custom_styles/bg = SubResource( 3 )
+custom_colors/font_color_selected = Color( 0.968627, 1, 0, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+max_columns = 2
+fixed_column_width = 58
+fixed_icon_size = Vector2( 8, 8 )
+script = ExtResource( 4 )

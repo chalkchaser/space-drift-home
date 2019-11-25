@@ -10,3 +10,15 @@ script = ExtResource( 1 )
 [node name="Weapon" parent="." instance=ExtResource( 2 )]
 
 [node name="WeaponGunShotgun" parent="." instance=ExtResource( 3 )]
+
+[node name="WeaponGunShotgun2" parent="." instance=ExtResource( 3 )]
+
+[node name="WeaponGunShotgun3" parent="." instance=ExtResource( 3 )]
+
+[node name="WeaponGunShotgun4" parent="." instance=ExtResource( 3 )]
+
+[node name="WeaponGunShotgun5" parent="." instance=ExtResource( 3 )]
+
+[node name="WeaponGunShotgun6" parent="." instance=ExtResource( 3 )]
+
+[node name="WeaponGunShotgun7" parent="." instance=ExtResource( 3 )]
