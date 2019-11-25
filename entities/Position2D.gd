@@ -6,6 +6,7 @@ extends Position2D
 var player_position
 var distance_to_player = 14
 var past_position
+var z_index_weapon = 2
 
 #var weapon = preload("res://weapons/Shotgun.tscn")
 #var weapon_2 = preload("res://weapons/Handgun.tscn")
@@ -37,7 +38,7 @@ func set_distance_to_player(distance):
 func _process(delta):
 	if(get_child(0).get_node("Sprite")!= null):
 		get_child(0).get_node("Sprite").show()
-	
+	get_child(0).get_node("Sprite").z_index = z_index_weapon
 	
 	if(!Interface.get_node("InventoryWindow").is_open):
 		player_position = get_parent().get_global_position() 
@@ -50,7 +51,7 @@ func _process(delta):
 		var cosinus = (player_to_cursor.x * base_vector.x + player_to_cursor.y * base_vector.y) / (sqrt(pow(player_to_cursor.x,2) + pow(player_to_cursor.y,2)))
 		if(cursor_xy.y > player_xy.y):
 			rotation = (acos( cosinus)) 
-			get_child(0).get_node("Sprite").z_index = 2
+			z_index_weapon = 2
 		else: 
 			rotation = -(acos(cosinus)) 
-			get_child(0).get_node("Sprite").z_index = 0
+			z_index_weapon = 0
