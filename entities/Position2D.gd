@@ -8,11 +8,6 @@ var distance_to_player = 14
 var past_position
 var z_index_weapon = 2
 
-#var weapon = preload("res://weapons/Shotgun.tscn")
-#var weapon_2 = preload("res://weapons/Handgun.tscn")
-
-
-
 func _ready():		
 	switch_weapon(0)
 	
@@ -34,7 +29,7 @@ func switch_weapon(index):
 	
 func set_distance_to_player(distance):
 	distance_to_player = distance
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(delta):
 	if(get_child(0).get_node("Sprite")!= null):
 		get_child(0).get_node("Sprite").show()

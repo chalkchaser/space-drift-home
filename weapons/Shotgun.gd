@@ -7,6 +7,7 @@ extends "res://Item.gd"
 # Called when thextends Node
 
 #default Weapon
+var inventory_name  = "Shotgun"
 var shot_speed = 10 #default 
 var player_position
 var distance_to_player = 20

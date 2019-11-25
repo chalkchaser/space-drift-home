@@ -1,6 +1,7 @@
 extends "res://Item.gd"
 
 #default Weapon
+var inventory_name = "Handgun"
 var shot_speed = 6 #default 
 var player_position
 onready var bullet = load("res://entities/Bullet.tscn")#delta
