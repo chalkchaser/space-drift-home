@@ -13,7 +13,7 @@ var muzzle_timer = null
 var muzzle_time = 0.02
 var size_to_grow_to #used lerping the image
 var shake_amount = 0
-
+var distance_to_player = 14
 #TODO energy usage
 func _ready():
 	#set_process(false)
@@ -36,7 +36,7 @@ func _ready():
     	
 func _process(delta):
 	if(get_parent().has_method("set_distance_to_player")):
-		get_parent().set_distance_to_player(14)
+		get_parent().set_distance_to_player(distance_to_player)
 	
 	#player_position = get_parent().get_position()
 	if(!Interface.get_node("InventoryWindow").is_open):

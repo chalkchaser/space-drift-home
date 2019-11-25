@@ -24,6 +24,7 @@ func switch_weapon(index):
 	var temp = Inventory.get_child(index)
 	Inventory.remove_child(temp)
 	add_child(temp)
+	position = position.normalized()* temp.distance_to_player
 	temp.set_process(true)
 	
 	remove_child(current)
@@ -40,7 +41,7 @@ func _process(delta):
 	
 	if(!Interface.get_node("InventoryWindow").is_open):
 		player_position = get_parent().get_global_position() 
-		position =(get_parent().get_global_mouse_position() - player_position).normalized() *distance_to_player
+		position =(get_parent().get_global_mouse_position() - player_position).normalized()* distance_to_player 
 	
 		var player_xy =get_parent().get_global_position()
 		var cursor_xy = get_global_mouse_position()

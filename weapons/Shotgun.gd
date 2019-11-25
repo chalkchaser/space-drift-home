@@ -9,6 +9,7 @@ extends "res://Item.gd"
 #default Weapon
 var shot_speed = 10 #default 
 var player_position
+var distance_to_player = 20
 onready var bullet = load("res://entities/Bullet.tscn")#delta
 
 var delay_timer = null

@@ -25,4 +25,4 @@ func refresh():
 
 
 func _on_ItemList_item_activated(index):
-	get_tree().get_root().get_node("DemoStage").get_node("Player").switch_weapon(index)
+	get_tree().get_root().get_child(2).get_node("Player").switch_weapon(index)
