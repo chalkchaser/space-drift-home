@@ -24,7 +24,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
 	size_to_grow_to = Vector2(1,1)
 	_restore_size(delta)
 	var velocity = Vector2()

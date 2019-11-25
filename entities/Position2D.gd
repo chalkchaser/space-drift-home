@@ -6,6 +6,7 @@ extends Position2D
 var player_position
 var distance_to_player = 14
 var past_position
+
 #var weapon = preload("res://weapons/Shotgun.tscn")
 #var weapon_2 = preload("res://weapons/Handgun.tscn")
 
@@ -14,14 +15,11 @@ var past_position
 func _ready():		
 	switch_weapon(0)
 	
-	#self.add_child(Inventory.get_child(1))
-	#add_child(Inventory.ge)
-	
 func switch_weapon(index):
 	var current = get_child(0)
 	if(current != null):
 		current.set_process(false)
-
+		current.get_node("Sprite").hide()
 	
 	var temp = Inventory.get_child(index)
 	Inventory.remove_child(temp)
@@ -36,7 +34,22 @@ func set_distance_to_player(distance):
 	distance_to_player = distance
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if(get_child(0).get_node("Sprite")!= null):
+		get_child(0).get_node("Sprite").show()
+	
+	
 	if(!Interface.get_node("InventoryWindow").is_open):
 		player_position = get_parent().get_global_position() 
 		position =(get_parent().get_global_mouse_position() - player_position).normalized() *distance_to_player
-
+	
+		var player_xy =get_parent().get_global_position()
+		var cursor_xy = get_global_mouse_position()
+		var player_to_cursor =    cursor_xy - player_xy 
+		var base_vector = Vector2(1,0)
+		var cosinus = (player_to_cursor.x * base_vector.x + player_to_cursor.y * base_vector.y) / (sqrt(pow(player_to_cursor.x,2) + pow(player_to_cursor.y,2)))
+		if(cursor_xy.y > player_xy.y):
+			rotation = (acos( cosinus)) 
+			get_child(0).get_node("Sprite").z_index = 2
+		else: 
+			rotation = -(acos(cosinus)) 
+			get_child(0).get_node("Sprite").z_index = 0
