@@ -12,6 +12,7 @@ var invincibility_timer
 var invincibility_time   = 1.2
 var invincible = false
 var health = 100
+var shader_all_white = preload("res://art_shaders/all_white_shader.tres")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	invincibility_timer = Timer.new()
@@ -19,11 +20,16 @@ func _ready():
 	invincibility_timer.set_wait_time(invincibility_time)
 	invincibility_timer.connect("timeout",self,"_stop_invincibility")
 	add_child(invincibility_timer)
-	invincibility_timer.start()
+	
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if(invincibility_timer.get_time_left() >= invincibility_time -0.03):
+		get_node("AnimatedSprite").material = shader_all_white
+	else:
+		(get_node("AnimatedSprite").material = null)
+	
 	size_to_grow_to = Vector2(1,1)
 	_restore_size(delta)
 	var velocity = Vector2()
@@ -52,7 +58,7 @@ func _process(delta):
 	else: $AnimatedSprite.play("right_facing")
 	move_and_slide(velocity,Vector2(0,0),false,4,0.785398,false)
 
-	if(invincible):
+	if(invincible && invincibility_timer.get_time_left() <= invincibility_time -0.03):
 		self.modulate.a = 0.4 if (Engine.get_frames_drawn() / 8) % 2 == 0 else 1.0
 	else:
         self.modulate.a = 1.0
@@ -65,6 +71,8 @@ func _is_hit():
 		invincibility_timer.start()
 	invincible = true
 	
+
+		
 
 
 func _stop_invincibility():

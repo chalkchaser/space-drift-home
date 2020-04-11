@@ -1,0 +1,53 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://spaceview/SpaceView.gd" type="Script" id=1]
+[ext_resource path="res://interface/Interface.tscn" type="PackedScene" id=2]
+[ext_resource path="res://art_spaceview/space_view.png" type="Texture" id=3]
+[ext_resource path="res://art_spaceview/space_ship_small_icon.png" type="Texture" id=4]
+[ext_resource path="res://art_spaceview/space_ship_small_icon_2.png" type="Texture" id=5]
+[ext_resource path="res://art_spaceview/space_ship_small_icon_3.png" type="Texture" id=6]
+[ext_resource path="res://art_spaceview/textbox.png" type="Texture" id=7]
+[ext_resource path="res://fonts/manaspace.tres" type="DynamicFont" id=8]
+
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "ship_fly",
+"speed": 4.0
+} ]
+
+[sub_resource type="Theme" id=2]
+default_font = ExtResource( 8 )
+
+[node name="SpaceView" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Interface" parent="." instance=ExtResource( 2 )]
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 160.15, 90.2661 )
+texture = ExtResource( 3 )
+
+[node name="Position2D" type="Position2D" parent="."]
+
+[node name="Ship" type="AnimatedSprite" parent="Position2D"]
+position = Vector2( 12.4378, 135.221 )
+z_index = 1
+frames = SubResource( 1 )
+animation = "ship_fly"
+frame = 1
+playing = true
+
+[node name="TextBox" type="Sprite" parent="."]
+position = Vector2( 88.1819, 69.5127 )
+texture = ExtResource( 7 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 16.1835
+margin_top = 24.2378
+margin_right = 163.184
+margin_bottom = 113.238
+theme = SubResource( 2 )
+text = "m nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\"\"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam"

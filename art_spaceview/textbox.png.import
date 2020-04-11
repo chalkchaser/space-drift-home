@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/space_view.png-90f77e3cae0eb12ab40a18a571c41ee3.stex"
+path="res://.import/textbox.png-d273256b052ec2d6adbf1be191ada016.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://space_view.png"
-dest_files=[ "res://.import/space_view.png-90f77e3cae0eb12ab40a18a571c41ee3.stex" ]
+source_file="res://art_spaceview/textbox.png"
+dest_files=[ "res://.import/textbox.png-d273256b052ec2d6adbf1be191ada016.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

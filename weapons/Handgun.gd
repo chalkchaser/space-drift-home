@@ -1,4 +1,4 @@
-extends "res://Item.gd"
+extends "res://parents/Item.gd"
 
 #default Weapon
 var inventory_name = "Handgun"

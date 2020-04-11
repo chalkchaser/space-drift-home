@@ -1,4 +1,4 @@
-extends "res://Item.gd"
+extends "res://parents/Item.gd"
 
 # Declare member variables here. Examples:
 # var a = 2

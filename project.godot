@@ -22,7 +22,7 @@ config/icon="res://art_environment/icon.png"
 [autoload]
 
 Interface="*res://interface/Interface.tscn"
-Inventory="*res://Inventory.tscn"
+Inventory="*res://Inventory/Inventory.tscn"
 
 [display]
 
