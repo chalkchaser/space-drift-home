@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://spaceview/SpaceView.gd" type="Script" id=1]
 [ext_resource path="res://interface/Interface.tscn" type="PackedScene" id=2]
@@ -6,9 +6,9 @@
 [ext_resource path="res://art_spaceview/space_ship_small_icon.png" type="Texture" id=4]
 [ext_resource path="res://art_spaceview/space_ship_small_icon_2.png" type="Texture" id=5]
 [ext_resource path="res://art_spaceview/space_ship_small_icon_3.png" type="Texture" id=6]
-[ext_resource path="res://art_spaceview/textbox.png" type="Texture" id=7]
-[ext_resource path="res://fonts/manaspace.tres" type="DynamicFont" id=8]
-
+[ext_resource path="res://art_spaceview/spaceship.png" type="Texture" id=7]
+[ext_resource path="res://art_spaceview/textbox.png" type="Texture" id=8]
+[ext_resource path="res://fonts/manaspace.tres" type="DynamicFont" id=9]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -18,8 +18,16 @@ animations = [ {
 "speed": 4.0
 } ]
 
-[sub_resource type="Theme" id=2]
-default_font = ExtResource( 8 )
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="Theme" id=3]
+default_font = ExtResource( 9 )
 
 [node name="SpaceView" type="Node2D"]
 script = ExtResource( 1 )
@@ -34,20 +42,26 @@ texture = ExtResource( 3 )
 
 [node name="Ship" type="AnimatedSprite" parent="Position2D"]
 position = Vector2( 12.4378, 135.221 )
-z_index = 1
 frames = SubResource( 1 )
 animation = "ship_fly"
-frame = 1
+frame = 2
 playing = true
+
+[node name="PositionOfShip" type="Position2D" parent="."]
+
+[node name="BigShipSprite" type="AnimatedSprite" parent="PositionOfShip"]
+position = Vector2( 90.9123, 74.4122 )
+z_index = -1
+frames = SubResource( 2 )
 
 [node name="TextBox" type="Sprite" parent="."]
 position = Vector2( 88.1819, 69.5127 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="MissionTextBox" type="RichTextLabel" parent="."]
 margin_left = 16.1835
 margin_top = 24.2378
 margin_right = 163.184
 margin_bottom = 113.238
-theme = SubResource( 2 )
+theme = SubResource( 3 )
 text = "m nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\"\"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam"
