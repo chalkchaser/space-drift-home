@@ -12,6 +12,9 @@ var ship_moves_up = true
 # Called when the node enters the scene tree for the first time.
 var mission_data
 var mission_text = ""
+var mission_answer_text = ""
+var mission_answer_text2 = ""
+var mission_answer_text3 = ""
 func _ready():
 	get_node("TextBox").modulate = Color(1, 1, 1, 0.5)
 	
@@ -26,12 +29,17 @@ func _ready():
 	var mission = generate_mission()
 	print(mission.MissionName)	
 	mission_text = mission.Text
+	
 	var answers = generate_answers(mission)
+	mission_answer_text = answers[0].Text
+	mission_answer_text2 = answers[1].Text
+	mission_answer_text3 = answers[2].Text
+	
 	for answer in answers:
 		print(answer.Text)
 	
 	show_mission()
-	#get_node("RichTextLabel").set_text(str(dict[1]))
+
 
 
 func generate_mission():
@@ -68,8 +76,32 @@ func generate_answers(mission):
 	
 func show_mission():	
 	get_node("MissionTextBox").text = mission_text
+	get_node("Text1").text = mission_answer_text
+	get_node("Text2").text = mission_answer_text2
+	get_node("Text3").text = mission_answer_text3
 
+func button_on_hover():
+	if(get_node("Answer1").is_hovered()):
+		get_node("Text1").modulate = Color(0.95, 1, 0, 1)
+		print("hovered1")
+	else: 	
+		get_node("Text1").modulate = Color(1, 1, 1)
+		
+		
+	if(get_node("Answer2").is_hovered()):
+		get_node("Text2").modulate = Color(0.95, 1, 0, 1)
+	else: 	
+		get_node("Text2").modulate = Color(1, 1, 1)	
+		
+	if(get_node("Answer3").is_hovered()):
+		get_node("Text3").modulate = Color(0.95, 1, 0, 1)
+	else: 	
+		get_node("Text3").modulate = Color(1, 1, 1)
+		
 func _process(delta):
+	button_on_hover()
+	
+	
 	if(get_node("Position2D").position.x<sceen_width_minus_ship_length):
 		get_node("Position2D").position.x =get_node("Position2D").position.x+ pixel_speed_per_frame
 	
