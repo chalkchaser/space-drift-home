@@ -12,9 +12,15 @@ var ship_moves_up = true
 # Called when the node enters the scene tree for the first time.
 var mission_data
 var mission_text = ""
+
+var mission_event1
+var mission_event2
+var mission_event3
+
 var mission_answer_text1 = ""
 var mission_answer_text2 = ""
 var mission_answer_text3 = ""
+
 func _ready():
 	get_node("TextBox").modulate = Color(1, 1, 1, 0.5)
 	
@@ -31,18 +37,26 @@ func _ready():
 	mission_text = mission.Text
 	
 	var answers = generate_answers(mission)
-	
+
 	mission_answer_text1 = answers[0].Text
 	if(answers.size()>1):
 		mission_answer_text2 = answers[1].Text
 	if(answers.size()>2):	
 		mission_answer_text3 = answers[2].Text
 	
+	if(answers.size()>0 and answers[0].Event != null):	
+		mission_event1 = answers[0].Event
+	if(answers.size()>1 and answers[1].Event != null):	
+		mission_event2 = answers[1].Event	
+	if(answers.size()>2 and answers[2].Event != null ):	
+		mission_event3 = answers[2].Event
+		
+		
 	for answer in answers:
 		print(answer.Text)
+		print(answer.Event)
 	
 	show_mission()
-
 
 
 func generate_mission():
@@ -75,8 +89,6 @@ func generate_answers(mission):
 	return generated_answers
 		
 		
-	
-	
 func show_mission():	
 	get_node("MissionTextBox").text = mission_text
 	get_node("Text1").text = mission_answer_text1
@@ -96,7 +108,6 @@ func button_on_hover():
 	else: 	
 		get_node("Text1").modulate = Color(1, 1, 1)	
 		
-		
 	if(get_node("Answer2").is_hovered()):
 		get_node("Text2").modulate = Color(0.95, 1, 0, 1)
 	else: 	
@@ -110,10 +121,8 @@ func button_on_hover():
 func _process(delta):
 	button_on_hover()
 	
-	
 	if(get_node("Position2D").position.x<sceen_width_minus_ship_length):
 		get_node("Position2D").position.x =get_node("Position2D").position.x+ pixel_speed_per_frame
-	
 	
 	
 	if(ship_y_position>6):
@@ -126,16 +135,20 @@ func _process(delta):
 	get_node("PositionOfShip").position.y  = ship_y_position
 	
 
-
-
-
 func _on_Answer1_button_down():
 	print("button1 pressed")
-
+	print("event that should be activated is: " + str(mission_event1))
+	var path = "res://stages/" + str(mission_event1)+ ".tscn"
+	get_tree().change_scene(path)
 
 func _on_Answer2_button_down():
 	print("button2 pressed")
-
+	print("event that should be activated is: " + str(mission_event1))
+	var path = "res://stages/" + str(mission_event2)+ ".tscn"
+	get_tree().change_scene(path)
 
 func _on_Answer3_button_down():
 	print("button3 pressed")
+	print("event that should be activated is: " + str(mission_event1))
+	var path = "res://stages/" + str(mission_event3)+ ".tscn"
+	get_tree().change_scene(path)

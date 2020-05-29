@@ -45,7 +45,7 @@ script = ExtResource( 1 )
 [node name="Interface" parent="." instance=ExtResource( 2 )]
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 149.248, 90.614 )
+position = Vector2( 160.02, 89.9145 )
 texture = ExtResource( 3 )
 
 [node name="Position2D" type="Position2D" parent="."]
@@ -63,18 +63,18 @@ playing = true
 position = Vector2( 90.9123, 74.4122 )
 z_index = -1
 frames = SubResource( 2 )
-frame = 2
+frame = 8
 playing = true
 
 [node name="TextBox" type="Sprite" parent="."]
-position = Vector2( 88.1819, 69.5127 )
+position = Vector2( 92.8258, 70.1036 )
 texture = ExtResource( 16 )
 
 [node name="Text1" type="RichTextLabel" parent="."]
-margin_left = 14.6785
-margin_top = 111.239
-margin_right = 153.679
-margin_bottom = 116.239
+margin_left = 19.3224
+margin_top = 111.83
+margin_right = 158.323
+margin_bottom = 116.83
 custom_styles/focus = SubResource( 3 )
 custom_fonts/mono_font = ExtResource( 17 )
 custom_fonts/normal_font = ExtResource( 17 )
@@ -82,19 +82,19 @@ text = "This is a test"
 scroll_active = false
 
 [node name="Answer1" type="TextureButton" parent="."]
-margin_left = 14.0
-margin_top = 111.0
-margin_right = 154.0
-margin_bottom = 116.0
+margin_left = 18.6439
+margin_top = 111.591
+margin_right = 158.644
+margin_bottom = 116.591
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="Text2" type="RichTextLabel" parent="."]
-margin_left = 14.6785
-margin_top = 105.983
-margin_right = 153.679
-margin_bottom = 110.983
+margin_left = 19.3224
+margin_top = 106.574
+margin_right = 158.323
+margin_bottom = 111.574
 custom_styles/focus = SubResource( 3 )
 custom_fonts/mono_font = ExtResource( 17 )
 custom_fonts/normal_font = ExtResource( 17 )
@@ -102,19 +102,19 @@ text = "This is a test"
 scroll_active = false
 
 [node name="Answer2" type="TextureButton" parent="."]
-margin_left = 14.0
-margin_top = 105.744
-margin_right = 154.0
-margin_bottom = 110.744
+margin_left = 18.6439
+margin_top = 106.335
+margin_right = 158.644
+margin_bottom = 111.335
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="Text3" type="RichTextLabel" parent="."]
-margin_left = 14.6785
-margin_top = 101.311
-margin_right = 153.679
-margin_bottom = 106.311
+margin_left = 19.3224
+margin_top = 101.902
+margin_right = 158.323
+margin_bottom = 106.902
 custom_styles/focus = SubResource( 3 )
 custom_fonts/mono_font = ExtResource( 17 )
 custom_fonts/normal_font = ExtResource( 17 )
@@ -122,19 +122,19 @@ text = "This is a test"
 scroll_active = false
 
 [node name="Answer3" type="TextureButton" parent="."]
-margin_left = 14.0
-margin_top = 101.072
-margin_right = 154.0
-margin_bottom = 106.072
+margin_left = 18.6439
+margin_top = 101.663
+margin_right = 158.644
+margin_bottom = 106.663
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="MissionTextBox" type="RichTextLabel" parent="."]
-margin_left = 16.0
-margin_top = 24.0
-margin_right = 162.0
-margin_bottom = 94.0
+margin_left = 20.6439
+margin_top = 24.5909
+margin_right = 166.644
+margin_bottom = 94.5909
 theme = SubResource( 4 )
 text = "dwefedefaeffafaf"
 [connection signal="button_down" from="Answer1" to="." method="_on_Answer1_button_down"]
