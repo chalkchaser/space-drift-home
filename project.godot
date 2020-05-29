@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="SpaceDriftHome"
-run/main_scene="res://stages/Demo.tscn"
+run/main_scene="res://spaceview/SpaceView.tscn"
 config/icon="res://art_environment/icon.png"
 
 [autoload]

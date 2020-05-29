@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://entities/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://art_effects/CameraObject.tscn" type="PackedScene" id=2]
+[ext_resource path="res://entities/Slime.tscn" type="PackedScene" id=3]
+
+[node name="Stage" type="Node"]
+
+[node name="Player" parent="." groups=[
+"players",
+] instance=ExtResource( 1 )]
+position = Vector2( 161.912, 73.2802 )
+
+[node name="CameraObject" parent="." instance=ExtResource( 2 )]
+
+[node name="Slime" parent="." instance=ExtResource( 3 )]
+position = Vector2( 11.6979, -5.28291 )
+
+[node name="Slime2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 132.828, -28.6787 )
+
+[node name="Slime3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 44.5274, 45.6595 )
+
+[node name="Slime4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 169.053, -6.41497 )
+
+[node name="Slime5" parent="." instance=ExtResource( 3 )]
+position = Vector2( 31.6975, 84.1493 )
+
+[node name="Slime6" parent="." instance=ExtResource( 3 )]
+position = Vector2( 58.4894, -31.3201 )

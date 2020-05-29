@@ -12,7 +12,7 @@ var ship_moves_up = true
 # Called when the node enters the scene tree for the first time.
 var mission_data
 var mission_text = ""
-var mission_answer_text = ""
+var mission_answer_text1 = ""
 var mission_answer_text2 = ""
 var mission_answer_text3 = ""
 func _ready():
@@ -31,9 +31,12 @@ func _ready():
 	mission_text = mission.Text
 	
 	var answers = generate_answers(mission)
-	mission_answer_text = answers[0].Text
-	mission_answer_text2 = answers[1].Text
-	mission_answer_text3 = answers[2].Text
+	
+	mission_answer_text1 = answers[0].Text
+	if(answers.size()>1):
+		mission_answer_text2 = answers[1].Text
+	if(answers.size()>2):	
+		mission_answer_text3 = answers[2].Text
 	
 	for answer in answers:
 		print(answer.Text)
@@ -76,16 +79,22 @@ func generate_answers(mission):
 	
 func show_mission():	
 	get_node("MissionTextBox").text = mission_text
-	get_node("Text1").text = mission_answer_text
+	get_node("Text1").text = mission_answer_text1
 	get_node("Text2").text = mission_answer_text2
 	get_node("Text3").text = mission_answer_text3
+	if mission_answer_text1 == "":
+		get_node("Answer1").hide()#must use autofinish text when answer 1 is empty
+	if mission_answer_text2 == "":
+		get_node("Answer2").hide()
+	if mission_answer_text3 == "":
+		get_node("Answer3").hide()	
+	
 
 func button_on_hover():
 	if(get_node("Answer1").is_hovered()):
 		get_node("Text1").modulate = Color(0.95, 1, 0, 1)
-		print("hovered1")
 	else: 	
-		get_node("Text1").modulate = Color(1, 1, 1)
+		get_node("Text1").modulate = Color(1, 1, 1)	
 		
 		
 	if(get_node("Answer2").is_hovered()):
@@ -106,6 +115,7 @@ func _process(delta):
 		get_node("Position2D").position.x =get_node("Position2D").position.x+ pixel_speed_per_frame
 	
 	
+	
 	if(ship_y_position>6):
 		ship_moves_up = false
 	if(ship_y_position < -6):
@@ -117,3 +127,15 @@ func _process(delta):
 	
 
 
+
+
+func _on_Answer1_button_down():
+	print("button1 pressed")
+
+
+func _on_Answer2_button_down():
+	print("button2 pressed")
+
+
+func _on_Answer3_button_down():
+	print("button3 pressed")
