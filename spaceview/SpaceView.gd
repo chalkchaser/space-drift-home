@@ -1,37 +1,35 @@
 extends Node2D
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 var distance = 0
 var sceen_width_minus_ship_length = 300
 var pixel_speed_per_frame = 0.04
 var dict = {}
 var ship_y_position = 0
 var ship_moves_up = true
-# Called when the node enters the scene tree for the first time.
 var mission_data
 var mission_text = ""
-
 var mission_event1
 var mission_event2
 var mission_event3
-
 var mission_answer_text1 = ""
 var mission_answer_text2 = ""
 var mission_answer_text3 = ""
+var timer
+var current_mission_probability = 0.05
 
 func _ready():
-	get_node("TextBox").modulate = Color(1, 1, 1, 0.5)
-	
-	
-	var mission_data_file = File.new()
-	mission_data_file.open("res://invisibleData/mission_dialogue.json", File.READ)
-	var mission_data_json = JSON.parse(mission_data_file.get_as_text())
-	mission_data_file.close()
-	mission_data = mission_data_json.result
 	
 	randomize()
+	change_and_hide_text_box()
+	
+	parse_mission_json()
+	start_new_mission_timer()
+
+	
+
+
+
+func generate_mission_dialogue():
 	var mission = generate_mission()
 	print(mission.MissionName)	
 	mission_text = mission.Text
@@ -56,8 +54,38 @@ func _ready():
 		print(answer.Text)
 		print(answer.Event)
 	
-	show_mission()
+func start_new_mission_timer():
+	timer = Timer.new()
+	timer.wait_time = 4
+	timer.one_shot = false
+	self.add_child(timer)
+	timer.start()
+	timer.connect("timeout",self,"mission_tick")
+	
+	
+func mission_tick():
+	current_mission_probability 
+	if(randf() < current_mission_probability):
+		timer.queue_free()
+		generate_mission_dialogue()#these should be called
+		show_mission()             #in a mission generator instead
+		print("mission has been generated with probability: "+str(current_mission_probability))
+	else: 
+		current_mission_probability = current_mission_probability * 1.5
+	print("tick, new mission probability: " + str(current_mission_probability))
+	
 
+func parse_mission_json():
+	var mission_data_file = File.new()
+	mission_data_file.open("res://invisibleData/mission_dialogue.json", File.READ)
+	var mission_data_json = JSON.parse(mission_data_file.get_as_text())
+	mission_data_file.close()
+	mission_data = mission_data_json.result
+	
+
+func change_and_hide_text_box():
+	get_node("TextDialogue/TextBox").modulate = Color(1, 1, 1, 0.5)
+	get_node("TextDialogue").hide()
 
 func generate_mission():
 	var possible_missions = []
@@ -90,33 +118,34 @@ func generate_answers(mission):
 		
 		
 func show_mission():	
-	get_node("MissionTextBox").text = mission_text
-	get_node("Text1").text = mission_answer_text1
-	get_node("Text2").text = mission_answer_text2
-	get_node("Text3").text = mission_answer_text3
+	get_node("TextDialogue").show()
+	get_node("TextDialogue/MissionTextBox").text = mission_text
+	get_node("TextDialogue/Text1").text = mission_answer_text1
+	get_node("TextDialogue/Text2").text = mission_answer_text2
+	get_node("TextDialogue/Text3").text = mission_answer_text3
 	if mission_answer_text1 == "":
-		get_node("Answer1").hide()#must use autofinish text when answer 1 is empty
+		get_node("TextDialogue/Answer1").hide()#must use autofinish text when answer 1 is empty
 	if mission_answer_text2 == "":
-		get_node("Answer2").hide()
+		get_node("TextDialogue/Answer2").hide()
 	if mission_answer_text3 == "":
-		get_node("Answer3").hide()	
+		get_node("TextDialogue/Answer3").hide()	
 	
 
 func button_on_hover():
-	if(get_node("Answer1").is_hovered()):
-		get_node("Text1").modulate = Color(0.95, 1, 0, 1)
+	if(get_node("TextDialogue/Answer1").is_hovered()):
+		get_node("TextDialogue/Text1").modulate = Color(0.95, 1, 0, 1)
 	else: 	
-		get_node("Text1").modulate = Color(1, 1, 1)	
+		get_node("TextDialogue/Text1").modulate = Color(1, 1, 1)	
 		
-	if(get_node("Answer2").is_hovered()):
-		get_node("Text2").modulate = Color(0.95, 1, 0, 1)
+	if(get_node("TextDialogue/Answer2").is_hovered()):
+		get_node("TextDialogue/Text2").modulate = Color(0.95, 1, 0, 1)
 	else: 	
-		get_node("Text2").modulate = Color(1, 1, 1)	
+		get_node("TextDialogue/Text2").modulate = Color(1, 1, 1)	
 		
-	if(get_node("Answer3").is_hovered()):
-		get_node("Text3").modulate = Color(0.95, 1, 0, 1)
+	if(get_node("TextDialogue/Answer3").is_hovered()):
+		get_node("TextDialogue/Text3").modulate = Color(0.95, 1, 0, 1)
 	else: 	
-		get_node("Text3").modulate = Color(1, 1, 1)
+		get_node("TextDialogue/Text3").modulate = Color(1, 1, 1)
 		
 func _process(delta):
 	button_on_hover()

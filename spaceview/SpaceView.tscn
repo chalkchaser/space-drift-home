@@ -34,10 +34,10 @@ animations = [ {
 "speed": 8.0
 } ]
 
-[sub_resource type="StyleBoxEmpty" id=3]
-
 [sub_resource type="Theme" id=4]
 default_font = ExtResource( 17 )
+
+[sub_resource type="StyleBoxEmpty" id=3]
 
 [node name="SpaceView" type="Node2D"]
 script = ExtResource( 1 )
@@ -63,14 +63,23 @@ playing = true
 position = Vector2( 90.9123, 74.4122 )
 z_index = -1
 frames = SubResource( 2 )
-frame = 8
 playing = true
 
-[node name="TextBox" type="Sprite" parent="."]
+[node name="TextDialogue" type="Node2D" parent="."]
+
+[node name="TextBox" type="Sprite" parent="TextDialogue"]
 position = Vector2( 92.8258, 70.1036 )
 texture = ExtResource( 16 )
 
-[node name="Text1" type="RichTextLabel" parent="."]
+[node name="MissionTextBox" type="RichTextLabel" parent="TextDialogue"]
+margin_left = 20.6439
+margin_top = 24.5909
+margin_right = 166.644
+margin_bottom = 94.5909
+theme = SubResource( 4 )
+text = "dwefedefaeffafaf"
+
+[node name="Text1" type="RichTextLabel" parent="TextDialogue"]
 margin_left = 19.3224
 margin_top = 111.83
 margin_right = 158.323
@@ -81,16 +90,7 @@ custom_fonts/normal_font = ExtResource( 17 )
 text = "This is a test"
 scroll_active = false
 
-[node name="Answer1" type="TextureButton" parent="."]
-margin_left = 18.6439
-margin_top = 111.591
-margin_right = 158.644
-margin_bottom = 116.591
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Text2" type="RichTextLabel" parent="."]
+[node name="Text2" type="RichTextLabel" parent="TextDialogue"]
 margin_left = 19.3224
 margin_top = 106.574
 margin_right = 158.323
@@ -101,16 +101,7 @@ custom_fonts/normal_font = ExtResource( 17 )
 text = "This is a test"
 scroll_active = false
 
-[node name="Answer2" type="TextureButton" parent="."]
-margin_left = 18.6439
-margin_top = 106.335
-margin_right = 158.644
-margin_bottom = 111.335
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Text3" type="RichTextLabel" parent="."]
+[node name="Text3" type="RichTextLabel" parent="TextDialogue"]
 margin_left = 19.3224
 margin_top = 101.902
 margin_right = 158.323
@@ -121,7 +112,25 @@ custom_fonts/normal_font = ExtResource( 17 )
 text = "This is a test"
 scroll_active = false
 
-[node name="Answer3" type="TextureButton" parent="."]
+[node name="Answer1" type="TextureButton" parent="TextDialogue"]
+margin_left = 18.6439
+margin_top = 111.591
+margin_right = 158.644
+margin_bottom = 116.591
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Answer2" type="TextureButton" parent="TextDialogue"]
+margin_left = 18.6439
+margin_top = 106.335
+margin_right = 158.644
+margin_bottom = 111.335
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Answer3" type="TextureButton" parent="TextDialogue"]
 margin_left = 18.6439
 margin_top = 101.663
 margin_right = 158.644
@@ -129,14 +138,6 @@ margin_bottom = 106.663
 __meta__ = {
 "_edit_group_": true
 }
-
-[node name="MissionTextBox" type="RichTextLabel" parent="."]
-margin_left = 20.6439
-margin_top = 24.5909
-margin_right = 166.644
-margin_bottom = 94.5909
-theme = SubResource( 4 )
-text = "dwefedefaeffafaf"
-[connection signal="button_down" from="Answer1" to="." method="_on_Answer1_button_down"]
-[connection signal="button_down" from="Answer2" to="." method="_on_Answer2_button_down"]
-[connection signal="button_down" from="Answer3" to="." method="_on_Answer3_button_down"]
+[connection signal="button_down" from="TextDialogue/Answer1" to="." method="_on_Answer1_button_down"]
+[connection signal="button_down" from="TextDialogue/Answer2" to="." method="_on_Answer2_button_down"]
+[connection signal="button_down" from="TextDialogue/Answer3" to="." method="_on_Answer3_button_down"]
