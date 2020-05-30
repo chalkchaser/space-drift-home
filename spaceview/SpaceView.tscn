@@ -55,6 +55,7 @@ texture = ExtResource( 3 )
 position = Vector2( 12.4378, 135.221 )
 frames = SubResource( 1 )
 animation = "ship_fly"
+frame = 1
 playing = true
 
 [node name="PositionOfShip" type="Position2D" parent="."]
@@ -63,7 +64,7 @@ playing = true
 position = Vector2( 90.9123, 74.4122 )
 z_index = -1
 frames = SubResource( 2 )
-frame = 8
+frame = 7
 playing = true
 
 [node name="TextDialogue" type="Node2D" parent="."]
@@ -113,6 +114,12 @@ custom_fonts/normal_font = ExtResource( 17 )
 text = "This is a test"
 scroll_active = false
 
+[node name="ClickAll" type="TextureButton" parent="TextDialogue"]
+margin_left = 14.0
+margin_top = 21.0
+margin_right = 172.0
+margin_bottom = 119.0
+
 [node name="Answer1" type="TextureButton" parent="TextDialogue"]
 margin_left = 18.6439
 margin_top = 111.591
@@ -143,9 +150,9 @@ __meta__ = {
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 18 )
 volume_db = -80.0
-autoplay = true
 
 [node name="Tween" type="Tween" parent="."]
+[connection signal="button_down" from="TextDialogue/ClickAll" to="." method="_on_ClickAll_button_down"]
 [connection signal="button_down" from="TextDialogue/Answer1" to="." method="_on_Answer1_button_down"]
 [connection signal="button_down" from="TextDialogue/Answer2" to="." method="_on_Answer2_button_down"]
 [connection signal="button_down" from="TextDialogue/Answer3" to="." method="_on_Answer3_button_down"]

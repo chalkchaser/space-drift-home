@@ -7,6 +7,7 @@ var dict = {}
 var ship_y_position = 0
 var ship_moves_up = true
 var mission_data
+var mission_end
 var mission_text = ""
 var mission_event1
 var mission_event2
@@ -16,6 +17,8 @@ var mission_answer_text2 = ""
 var mission_answer_text3 = ""
 var timer
 var current_mission_probability = 0.05
+var STARTING_MISSION_PROBABILITY = 0.05
+var is_end = false
 onready var volume = get_node("Tween")
 
 func _ready():
@@ -27,38 +30,36 @@ func _ready():
 	change_and_hide_text_box()
 	
 	parse_mission_json()
+	parse_end_json()
 	start_new_mission_timer()
 
 	
+func generate_mission_dialogue(mission):
 
-
-
-func generate_mission_dialogue():
-	var mission = generate_mission()
 	print(mission.MissionName)	
 	mission_text = mission.Text
 	
 	var answers = generate_answers(mission)
-
 	mission_answer_text1 = answers[0].Text
 	if(answers.size()>1):
 		mission_answer_text2 = answers[1].Text
 	if(answers.size()>2):	
 		mission_answer_text3 = answers[2].Text
 	
-	if(answers.size()>0 and answers[0].Event != null):	
-		mission_event1 = answers[0].Event
-	if(answers.size()>1 and answers[1].Event != null):	
-		mission_event2 = answers[1].Event	
-	if(answers.size()>2 and answers[2].Event != null ):	
-		mission_event3 = answers[2].Event
+	if(answers.size()>0 and answers[0].LinksTo != null):	
+		mission_event1 = answers[0].LinksTo
+	if(answers.size()>1 and answers[1].LinksTo != null):	
+		mission_event2 = answers[1].LinksTo	
+	if(answers.size()>2 and answers[2].LinksTo != null ):	
+		mission_event3 = answers[2].LinksTo
 		
 		
 	for answer in answers:
 		print(answer.Text)
-		print(answer.Event)
+		print(answer.LinksTo)
 	
 func start_new_mission_timer():
+	current_mission_probability = STARTING_MISSION_PROBABILITY
 	timer = Timer.new()
 	timer.wait_time = 4
 	timer.one_shot = false
@@ -67,11 +68,11 @@ func start_new_mission_timer():
 	timer.connect("timeout",self,"mission_tick")
 	
 	
-func mission_tick():
-	current_mission_probability 
+func mission_tick(): 
 	if(randf() < current_mission_probability):
 		timer.queue_free()
-		generate_mission_dialogue()#these should be called
+		var mission = generate_mission()
+		generate_mission_dialogue(mission)#these should be called
 		show_mission()             #in a mission generator instead
 		print("mission has been generated with probability: "+str(current_mission_probability))
 	else: 
@@ -86,6 +87,12 @@ func parse_mission_json():
 	mission_data_file.close()
 	mission_data = mission_data_json.result
 	
+func parse_end_json():
+	var mission_end_file = File.new()
+	mission_end_file.open("res://invisibleData/mission_end.json", File.READ)
+	var mission_end_json = JSON.parse(mission_end_file.get_as_text())
+	mission_end_file.close()
+	mission_end = mission_end_json.result	
 
 func change_and_hide_text_box():
 	get_node("TextDialogue/TextBox").modulate = Color(1, 1, 1, 0.5)
@@ -104,7 +111,7 @@ func generate_mission():
 		while i[1] > 0: #i[1] is the weight of the mission name
 			weighted_missions.append(i[0]) #generates a list of mission names
 			i[1] = i[1] -1 	
-	weighted_missions.shuffle()		
+	weighted_missions.shuffle() # Randomizes Missions
 	return weighted_missions[0]
 	#for i in possible_missions:
 	
@@ -121,12 +128,14 @@ func generate_answers(mission):
 	return generated_answers
 		
 		
+	
 func show_mission():	
 	get_node("TextDialogue").show()
 	get_node("TextDialogue/MissionTextBox").text = mission_text
 	get_node("TextDialogue/Text1").text = mission_answer_text1
 	get_node("TextDialogue/Text2").text = mission_answer_text2
 	get_node("TextDialogue/Text3").text = mission_answer_text3
+	show_answers()
 	if mission_answer_text1 == "":
 		get_node("TextDialogue/Answer1").hide()#must use autofinish text when answer 1 is empty
 	if mission_answer_text2 == "":
@@ -171,17 +180,77 @@ func _process(delta):
 func _on_Answer1_button_down():
 	print("button1 pressed")
 	print("event that should be activated is: " + str(mission_event1))
-	var path = "res://stages/" + str(mission_event1)+ ".tscn"
-	get_tree().change_scene(path)
+
+	#var path = "res://stages/" + str(mission_event1)+ ".tscn"
+	#get_tree().change_scene(path)
+	handle_event(mission_event1)
 
 func _on_Answer2_button_down():
 	print("button2 pressed")
-	print("event that should be activated is: " + str(mission_event1))
-	var path = "res://stages/" + str(mission_event2)+ ".tscn"
-	get_tree().change_scene(path)
+	print("event that should be activated is: " + str(mission_event2))
+	#var path = "res://stages/" + str(mission_event2)+ ".tscn"
+	#get_tree().change_scene(path)
+	handle_event(mission_event2)
 
 func _on_Answer3_button_down():
 	print("button3 pressed")
-	print("event that should be activated is: " + str(mission_event1))
-	var path = "res://stages/" + str(mission_event3)+ ".tscn"
-	get_tree().change_scene(path)
+	print("event that should be activated is: " + str(mission_event3))
+	#var path = "res://stages/" + str(mission_event3)+ ".tscn"
+	#get_tree().change_scene(path)
+	handle_event(mission_event3)
+
+
+var end_to_be_handled = ""
+func handle_event(mission_event):
+	for id in mission_end:
+		if str(id) == mission_event:
+			get_node("TextDialogue/MissionTextBox").text = mission_end[id].Text
+			hide_answers()
+			is_end = true
+			end_to_be_handled = mission_end[id].Event
+			
+
+func _on_ClickAll_button_down():
+	if(is_end == true):
+		is_end = false
+		get_node("TextDialogue").hide()	
+		if(end_to_be_handled == null):
+			print("nothing to be handled")
+		else:		
+			print(end_to_be_handled)
+		start_new_mission_timer()
+	#mission_event is of type String
+	
+func hide_answers():
+	get_node("TextDialogue/Answer1").hide()		
+	get_node("TextDialogue/Answer2").hide()	
+	get_node("TextDialogue/Answer3").hide()	
+	get_node("TextDialogue/Text1").hide()
+	get_node("TextDialogue/Text2").hide()
+	get_node("TextDialogue/Text3").hide()
+
+func show_answers():
+	get_node("TextDialogue/Answer1").show()		
+	get_node("TextDialogue/Answer2").show()	
+	get_node("TextDialogue/Answer3").show()	
+	get_node("TextDialogue/Text1").show()
+	get_node("TextDialogue/Text2").show()
+	get_node("TextDialogue/Text3").show()	
+	
+# ? types of events
+# type of Answer Dialgoue => Answer Dialogue| null  
+# 0: "do_nothing" -> Answer Dialgogue -> (change (variables| items))optional #dialogue A -> dialogue R -> dialogue epsilon
+# 1: "stage_change" -> Answer Dialogue -> change_stage #dialogue A -> dialogue R -> dialogue stage_change
+# 2: "jump_to_mission"-> event # dialogue A -> dialogue Event -> dialogue  dialogue A ...
+# 3: "buffer" -> "answer dialogue -> (change (variables| items))optional -> event dialogue Event -> dialogue itemchange dialogue A ...
+
+# sigma{ Event ,dialogue, A,  E)
+# dialogue Event -> (itemchange) dialogue Event | End
+# End -> dialogue stage_change|item_change| epsilon
+
+# TODO
+# necessary functions
+# Event <- generate_mission_dialoge,item_change # called sich selbst aus dem JSONfile1, beinhalted dialogue
+# End <- stage_change(),item_change(), close_dialogue() # called by JSONfile2
+
+

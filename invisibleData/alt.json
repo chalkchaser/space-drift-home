@@ -1,43 +1,43 @@
 {
   "10": {
     "MissionID": 10,
-    "MissionName": "SlimeEvent",
+    "MissionName": "Test1",
     "Weight": 1,
     "Tags": null,
-    "Text": "Some text about slime",
-    "LinksTo": null
+    "Text": "This is the Klappentext 1",
+    "Event": null
   },
   "11": {
     "MissionID": 11,
     "MissionName": "Answer1",
     "Weight": null,
     "Tags": null,
-    "Text": "This will lead to the level",
-    "LinksTo": "e1"
+    "Text": "This is the test 1 answer 1",
+    "Event": "LevelSlime"
   },
   "12": {
     "MissionID": 12,
     "MissionName": "Answer2",
     "Weight": null,
     "Tags": null,
-    "Text": "This will hurt you",
-    "LinksTo": "e2"
+    "Text": "This is the test 1 answer 2",
+    "Event": null
   },
   "13": {
     "MissionID": 13,
     "MissionName": "Answer3",
     "Weight": null,
     "Tags": null,
-    "Text": "This will do nothing",
-    "LinksTo": "e3"
+    "Text": "This is the test 1 answer 3",
+    "Event": null
   },
   "20": {
     "MissionID": 20,
-    "MissionName": "NothingEvent",
+    "MissionName": "Test2",
     "Weight": 1,
     "Tags": null,
     "Text": "This is the test 2 ",
-    "LinksTo": null
+    "Event": null
   },
   "21": {
     "MissionID": 21,
@@ -45,7 +45,7 @@
     "Weight": null,
     "Tags": null,
     "Text": "This is the test 2 answer 1",
-    "LinksTo": "e4"
+    "Event": null
   },
   "22": {
     "MissionID": 22,
@@ -53,6 +53,6 @@
     "Weight": null,
     "Tags": null,
     "Text": "This is the test 2 answer 2",
-    "LinksTo": "e5"
+    "Event": null
   }
 }

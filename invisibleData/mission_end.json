@@ -1,0 +1,27 @@
+{
+  "e1": {
+    "EndID": "e1",
+    "Event": "stage LevelSlime",
+    "Text": "explore"
+  },
+  "e2": {
+    "EndID": "e2",
+    "Event": "item reduce_life",
+    "Text": "risk it all"
+  },
+  "e3": {
+    "EndID": "e3",
+    "Event": null,
+    "Text": "do nothing"
+  },
+  "e4": {
+    "EndID": "e4",
+    "Event": null,
+    "Text": "exit"
+  },
+  "e5": {
+    "EndID": "e5",
+    "Event": "item reduce_life event 20",
+    "Text": "keep going"
+  }
+}
