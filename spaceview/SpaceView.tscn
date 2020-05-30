@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://spaceview/SpaceView.gd" type="Script" id=1]
 [ext_resource path="res://interface/Interface.tscn" type="PackedScene" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://art_spaceview/spaceship_animated9.png" type="Texture" id=15]
 [ext_resource path="res://art_spaceview/textbox.png" type="Texture" id=16]
 [ext_resource path="res://fonts/manaspace.tres" type="DynamicFont" id=17]
+[ext_resource path="res://music/Grace.ogg" type="AudioStream" id=18]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -54,7 +55,6 @@ texture = ExtResource( 3 )
 position = Vector2( 12.4378, 135.221 )
 frames = SubResource( 1 )
 animation = "ship_fly"
-frame = 1
 playing = true
 
 [node name="PositionOfShip" type="Position2D" parent="."]
@@ -63,6 +63,7 @@ playing = true
 position = Vector2( 90.9123, 74.4122 )
 z_index = -1
 frames = SubResource( 2 )
+frame = 8
 playing = true
 
 [node name="TextDialogue" type="Node2D" parent="."]
@@ -138,6 +139,13 @@ margin_bottom = 106.663
 __meta__ = {
 "_edit_group_": true
 }
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 18 )
+volume_db = -80.0
+autoplay = true
+
+[node name="Tween" type="Tween" parent="."]
 [connection signal="button_down" from="TextDialogue/Answer1" to="." method="_on_Answer1_button_down"]
 [connection signal="button_down" from="TextDialogue/Answer2" to="." method="_on_Answer2_button_down"]
 [connection signal="button_down" from="TextDialogue/Answer3" to="." method="_on_Answer3_button_down"]

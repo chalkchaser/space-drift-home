@@ -16,9 +16,13 @@ var mission_answer_text2 = ""
 var mission_answer_text3 = ""
 var timer
 var current_mission_probability = 0.05
+onready var volume = get_node("Tween")
 
 func _ready():
 	
+	volume.interpolate_property(get_node("BackgroundMusic"),"volume_db",-20, 0,1.2,Tween.TRANS_SINE,Tween.EASE_IN)
+	volume.start()
+
 	randomize()
 	change_and_hide_text_box()
 	
