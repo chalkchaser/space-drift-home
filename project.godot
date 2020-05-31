@@ -23,6 +23,7 @@ config/icon="res://art_environment/icon.png"
 
 Interface="*res://interface/Interface.tscn"
 Inventory="*res://Inventory/Inventory.tscn"
+BackgroundMusic="*res://music/BackgroundMusic.tscn"
 
 [display]
 

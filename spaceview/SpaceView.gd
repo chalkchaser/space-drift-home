@@ -19,7 +19,7 @@ var timer
 var current_mission_probability = 0.5
 var STARTING_MISSION_PROBABILITY = 0.5
 var is_end = false
-onready var volume = get_node("Tween")
+
 
 var scroll_offset = Vector2(0,0)
 
@@ -27,8 +27,7 @@ func _ready():
 	get_node("ParallaxLayer").scroll_offset = scroll_offset
 	get_node("ParallaxLayer/Background/universe").modulate = Color(2, 0 , 4)
 	get_node("PositionOfShip/BigShipSprite").modulate= Color(1.2 , 1 , 2)
-	volume.interpolate_property(get_node("BackgroundMusic"),"volume_db",-40, -20,1.2,Tween.TRANS_SINE,Tween.EASE_IN)
-	volume.start()
+
 
 	randomize()
 	change_and_hide_text_box()
@@ -246,7 +245,6 @@ func _on_ClickAll_button_down():
 			if(end_to_be_handled.begins_with("item ")): 
 				item_event_process(str(end_to_be_handled.lstrip("item ")))		
 		start_new_mission_timer()
-
 
 	#mission_event is of type String
 	
