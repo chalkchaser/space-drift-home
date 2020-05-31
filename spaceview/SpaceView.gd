@@ -235,11 +235,9 @@ func _on_ClickAll_button_down():
 				print(path)
 				get_tree().change_scene(path)
 			if(end_to_be_handled.begins_with("item ")): 
-				item_event_process(str(end_to_be_handled.lstrip("item ")))
-				Interface.get_node("TextureProgress")._set_value(Interface.health)	#no clue why this is forced to be here maybe function call not deffered
-				
+				item_event_process(str(end_to_be_handled.lstrip("item ")))		
 		start_new_mission_timer()
-		
+	Interface.get_node("TextureProgress")._set_value(Interface.health)	#deferred call
 
 	#mission_event is of type String
 	
