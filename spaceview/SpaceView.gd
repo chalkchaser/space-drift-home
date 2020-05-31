@@ -21,8 +21,12 @@ var STARTING_MISSION_PROBABILITY = 0.5
 var is_end = false
 onready var volume = get_node("Tween")
 
+var scroll_offset = Vector2(0,0)
+
 func _ready():
-	
+	get_node("ParallaxLayer").scroll_offset = scroll_offset
+	get_node("ParallaxLayer/Background/universe").modulate = Color(2, 0 , 4)
+	get_node("PositionOfShip/BigShipSprite").modulate= Color(1.2 , 1 , 2)
 	volume.interpolate_property(get_node("BackgroundMusic"),"volume_db",-40, -20,1.2,Tween.TRANS_SINE,Tween.EASE_IN)
 	volume.start()
 
@@ -175,6 +179,11 @@ func button_on_hover():
 func _process(delta):
 	button_on_hover()
 	
+	get_node("ParallaxLayer").scroll_offset = scroll_offset
+	scroll_offset = scroll_offset + Vector2(- 0.05,0)
+	if(scroll_offset.x < -320):
+		scroll_offset = Vector2(0,0)
+	
 	if(get_node("Position2D").position.x<sceen_width_minus_ship_length):
 		get_node("Position2D").position.x =get_node("Position2D").position.x+ pixel_speed_per_frame
 	
@@ -237,7 +246,7 @@ func _on_ClickAll_button_down():
 			if(end_to_be_handled.begins_with("item ")): 
 				item_event_process(str(end_to_be_handled.lstrip("item ")))		
 		start_new_mission_timer()
-	Interface.get_node("TextureProgress")._set_value(Interface.health)	#deferred call
+
 
 	#mission_event is of type String
 	
@@ -245,7 +254,7 @@ func _on_ClickAll_button_down():
 func item_event_process(item):#type string	
 	if item.begins_with("reduce_life"):
 		Interface.health = Interface.health - 20
-	
+		Interface.get_node("TextureProgress")._set_value(Interface.health)	#deferred call
 
 		#get_node.Interface.
 		#pass
