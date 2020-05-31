@@ -11,7 +11,6 @@ var size_to_grow_to
 var invincibility_timer
 var invincibility_time   = 1.2
 var invincible = false
-var health = 100
 var shader_all_white = preload("res://art_shaders/all_white_shader.tres")
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -61,13 +60,13 @@ func _process(delta):
 	if(invincible && invincibility_timer.get_time_left() <= invincibility_time -0.03):
 		self.modulate.a = 0.4 if (Engine.get_frames_drawn() / 8) % 2 == 0 else 1.0
 	else:
-        self.modulate.a = 1.0
+		self.modulate.a = 1.0
 
 
 func _is_hit():
 	if(not invincible):
-		health = health -20
-		Interface.get_node("TextureProgress")._set_value(health)
+		Interface.health = Interface.health -20
+		Interface.get_node("TextureProgress")._set_value(Interface.health)
 		invincibility_timer.start()
 	invincible = true
 	

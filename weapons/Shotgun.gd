@@ -41,7 +41,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 	#pass
-    	
+		
 func _process(delta):
 	if(get_parent().has_method("set_distance_to_player")):
 		get_parent().set_distance_to_player(20)

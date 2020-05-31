@@ -31,7 +31,7 @@ func empty_matrix():
 	for x in range(world_size):
 			matrix.append([])
 			for y in range(world_size):
-	        matrix[x].append(0)
+			matrix[x].append(0)
 
 func test_print(matrix):
 	for row in range(len(matrix)):
@@ -51,7 +51,7 @@ func _do_simulation_step(oldmatrix): #maybe should use sideeffect
 	for x in range(world_size):
 		new_matrix.append([])
 		for y in range(world_size):
-        new_matrix[x].append(0)
+		new_matrix[x].append(0)
 		
 	for x in range(len(oldmatrix)):
 		for y in range (len(matrix[x])):
@@ -76,9 +76,9 @@ func _flood_fill(matrix, former, latter):
 				print ("x :" + str(x) + " y:" + str(y)) 
 				break
 		 else:
-        # Continue if the inner loop wasn't broken.
-        continue
-    # Inner loop was broken, break the outer.
+		# Continue if the inner loop wasn't broken.
+		continue
+	# Inner loop was broken, break the outer.
 		break	
 
 

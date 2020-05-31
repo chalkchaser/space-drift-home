@@ -16,14 +16,14 @@ var mission_answer_text1 = ""
 var mission_answer_text2 = ""
 var mission_answer_text3 = ""
 var timer
-var current_mission_probability = 0.05
-var STARTING_MISSION_PROBABILITY = 0.05
+var current_mission_probability = 0.5
+var STARTING_MISSION_PROBABILITY = 0.5
 var is_end = false
 onready var volume = get_node("Tween")
 
 func _ready():
 	
-	volume.interpolate_property(get_node("BackgroundMusic"),"volume_db",-20, 0,1.2,Tween.TRANS_SINE,Tween.EASE_IN)
+	volume.interpolate_property(get_node("BackgroundMusic"),"volume_db",-40, -20,1.2,Tween.TRANS_SINE,Tween.EASE_IN)
 	volume.start()
 
 	randomize()
@@ -43,15 +43,24 @@ func generate_mission_dialogue(mission):
 	mission_answer_text1 = answers[0].Text
 	if(answers.size()>1):
 		mission_answer_text2 = answers[1].Text
+	else:
+		mission_answer_text2 = ""	
 	if(answers.size()>2):	
 		mission_answer_text3 = answers[2].Text
-	
+	else:
+		mission_answer_text3 = ""
 	if(answers.size()>0 and answers[0].LinksTo != null):	
 		mission_event1 = answers[0].LinksTo
+	else:
+		mission_event1 = ""	
 	if(answers.size()>1 and answers[1].LinksTo != null):	
 		mission_event2 = answers[1].LinksTo	
+	else:
+		mission_event2 = ""		
 	if(answers.size()>2 and answers[2].LinksTo != null ):	
 		mission_event3 = answers[2].LinksTo
+	else:
+		mission_event3 = ""		
 		
 		
 	for answer in answers:
@@ -73,6 +82,7 @@ func mission_tick():
 		timer.queue_free()
 		var mission = generate_mission()
 		generate_mission_dialogue(mission)#these should be called
+		generate_answers(mission)
 		show_mission()             #in a mission generator instead
 		print("mission has been generated with probability: "+str(current_mission_probability))
 	else: 
@@ -112,7 +122,9 @@ func generate_mission():
 			weighted_missions.append(i[0]) #generates a list of mission names
 			i[1] = i[1] -1 	
 	weighted_missions.shuffle() # Randomizes Missions
+	print(weighted_missions[0])
 	return weighted_missions[0]
+
 	#for i in possible_missions:
 	
 func generate_answers(mission):
@@ -209,7 +221,7 @@ func handle_event(mission_event):
 			is_end = true
 			end_to_be_handled = mission_end[id].Event
 			
-
+#this is the real event handler
 func _on_ClickAll_button_down():
 	if(is_end == true):
 		is_end = false
@@ -218,8 +230,27 @@ func _on_ClickAll_button_down():
 			print("nothing to be handled")
 		else:		
 			print(end_to_be_handled)
+			if(end_to_be_handled.begins_with("stage ")):
+				var path = "res://stages/" + str(end_to_be_handled.lstrip("stage "))+ ".tscn"
+				print(path)
+				get_tree().change_scene(path)
+			if(end_to_be_handled.begins_with("item ")): 
+				item_event_process(str(end_to_be_handled.lstrip("item ")))
+				Interface.get_node("TextureProgress")._set_value(Interface.health)	#no clue why this is forced to be here maybe function call not deffered
+				
 		start_new_mission_timer()
+		
+
 	#mission_event is of type String
+	
+#takes a string and calls and proceeds to turn it into a item result
+func item_event_process(item):#type string	
+	if item.begins_with("reduce_life"):
+		Interface.health = Interface.health - 20
+	
+
+		#get_node.Interface.
+		#pass
 	
 func hide_answers():
 	get_node("TextDialogue/Answer1").hide()		

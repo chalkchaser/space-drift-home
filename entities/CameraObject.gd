@@ -26,8 +26,8 @@ func _process(delta):
 	
 	if(shake == true):
 		get_node("Camera2D").set_offset(Vector2( 
-	    rand_range(-1.0, 1.0) * shake_amount, 
-	    rand_range(- 1.0, 1.0) * shake_amount))	
+		rand_range(-1.0, 1.0) * shake_amount, 
+		rand_range(- 1.0, 1.0) * shake_amount))	
 
 
 func _shake(time):

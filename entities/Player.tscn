@@ -11,11 +11,6 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ],
-"loop": true,
-"name": "walking_right",
-"speed": 10.0
-}, {
 "frames": [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "walking_back",
@@ -25,6 +20,11 @@ animations = [ {
 "loop": true,
 "name": "right_facing",
 "speed": 0.1
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "walking_right",
+"speed": 10.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -39,7 +39,6 @@ script = ExtResource( 1 )
 position = Vector2( 0.0221214, -0.00197601 )
 z_index = 1
 frames = SubResource( 1 )
-animation = "hurt"
 offset = Vector2( 0, 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

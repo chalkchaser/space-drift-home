@@ -79,7 +79,6 @@ func _is_hit_animation():
 
 func _stop_hit_animation():
 	get_node("AnimatedSprite").material =  null
-	print("stop shader")
 	
 func _process(delta):		
 	var vector_to_player = ((get_parent().get_node("Player").get_node("Shadow").get_global_position() - self.get_global_position()  ))
