@@ -24,6 +24,13 @@ var is_end = false
 var scroll_offset = Vector2(0,0)
 
 func _ready():
+	var audio_file = "res://music/Grace.ogg"
+	if File.new().file_exists(audio_file):
+		var sfx = load(audio_file) 
+		BackgroundMusic.stream = sfx
+		BackgroundMusic.play()
+		BackgroundMusic.volume.interpolate_property(BackgroundMusic,"volume_db",-40, -20,1.2,Tween.TRANS_SINE,Tween.EASE_IN)
+	
 	get_node("ParallaxLayer").scroll_offset = scroll_offset
 	get_node("ParallaxLayer/Background/universe").modulate = Color(2, 0 , 4)
 	get_node("PositionOfShip/BigShipSprite").modulate= Color(1.2 , 1 , 2)
@@ -239,9 +246,8 @@ func _on_ClickAll_button_down():
 		else:		
 			print(end_to_be_handled)
 			if(end_to_be_handled.begins_with("stage ")):
-				var path = "res://stages/" + str(end_to_be_handled.lstrip("stage "))+ ".tscn"
-				print(path)
-				get_tree().change_scene(path)
+				MetaLogic.switch_to_stage(end_to_be_handled)
+				
 			if(end_to_be_handled.begins_with("item ")): 
 				item_event_process(str(end_to_be_handled.lstrip("item ")))		
 		start_new_mission_timer()

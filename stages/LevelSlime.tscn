@@ -8,13 +8,6 @@
 [node name="Stage" type="Node"]
 script = ExtResource( 4 )
 
-[node name="Player" parent="." groups=[
-"players",
-] instance=ExtResource( 1 )]
-position = Vector2( 161.912, 73.2802 )
-
-[node name="CameraObject" parent="." instance=ExtResource( 2 )]
-
 [node name="Slime" parent="." instance=ExtResource( 3 )]
 position = Vector2( 11.6979, -5.28291 )
 
@@ -32,3 +25,12 @@ position = Vector2( 31.6975, 84.1493 )
 
 [node name="Slime6" parent="." instance=ExtResource( 3 )]
 position = Vector2( 58.4894, -31.3201 )
+
+[node name="Player" parent="." groups=[
+"players",
+] instance=ExtResource( 1 )]
+position = Vector2( 161.912, 73.2802 )
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="CameraObject" parent="." instance=ExtResource( 2 )]
