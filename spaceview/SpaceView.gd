@@ -22,14 +22,16 @@ var is_end = false
 
 
 var scroll_offset = Vector2(0,0)
+var scroll_offset2 = Vector2(0,0)
 
 func _ready():
 	BackgroundMusic.change_to("Grace.ogg")
 
-
 	
 	get_node("ParallaxLayer").scroll_offset = scroll_offset
+	get_node("ParallaxLayer2").scroll_offset = scroll_offset2
 	get_node("ParallaxLayer/Background/universe").modulate = Color(2, 0 , 4)
+	get_node("ParallaxLayer2/Planets/Sprite").modulate = Color(1.2, 1 , 2)
 	get_node("PositionOfShip/BigShipSprite").modulate= Color(1.2 , 1 , 2)
 
 
@@ -183,10 +185,17 @@ func _process(delta):
 	button_on_hover()
 	
 	get_node("ParallaxLayer").scroll_offset = scroll_offset
-	scroll_offset = scroll_offset + Vector2(- 0.05,0)
+	get_node("ParallaxLayer2").scroll_offset = scroll_offset2
+	scroll_offset = scroll_offset + Vector2(- 0.04,0)
+	scroll_offset2 = scroll_offset2 + Vector2(-0.06, 0)
 	if(scroll_offset.x < -320):
 		scroll_offset = Vector2(0,0)
-	
+
+
+	if(scroll_offset2.x < -320):
+		scroll_offset2 = Vector2(0,0)
+		
+		
 	if(get_node("Position2D").position.x<sceen_width_minus_ship_length):
 		get_node("Position2D").position.x =get_node("Position2D").position.x+ pixel_speed_per_frame
 	
