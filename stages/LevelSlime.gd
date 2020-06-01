@@ -8,12 +8,8 @@ extends Node
 var exit_condition_fullfilled = true
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var audio_file = "res://music/'Staircase' Retro Synthwave No Copyright Music.ogg"
-	if File.new().file_exists(audio_file):
-		var sfx = load(audio_file) 
-		BackgroundMusic.stream = sfx
-		BackgroundMusic.play()
-		BackgroundMusic.volume.interpolate_property(BackgroundMusic,"volume_db",-40, -20,1.2,Tween.TRANS_SINE,Tween.EASE_IN)
+	BackgroundMusic.change_to("Staircase.ogg")
+
 	
 
 

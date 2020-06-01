@@ -24,12 +24,9 @@ var is_end = false
 var scroll_offset = Vector2(0,0)
 
 func _ready():
-	var audio_file = "res://music/Grace.ogg"
-	if File.new().file_exists(audio_file):
-		var sfx = load(audio_file) 
-		BackgroundMusic.stream = sfx
-		BackgroundMusic.play()
-		BackgroundMusic.volume.interpolate_property(BackgroundMusic,"volume_db",-40, -20,1.2,Tween.TRANS_SINE,Tween.EASE_IN)
+	BackgroundMusic.change_to("Grace.ogg")
+
+
 	
 	get_node("ParallaxLayer").scroll_offset = scroll_offset
 	get_node("ParallaxLayer/Background/universe").modulate = Color(2, 0 , 4)
