@@ -153,6 +153,8 @@ func generate_answers(mission):
 		
 	
 func show_mission():	
+	var tween = get_node("Tween")
+
 	get_node("TextDialogue").show()
 	get_node("TextDialogue/MissionTextBox").text = mission_text
 	get_node("TextDialogue/Text1").text = mission_answer_text1
@@ -196,7 +198,7 @@ func _process(delta):
 			scroll_offset2 = Vector2(0,0)
 		if(get_node("Position2D").position.x<sceen_width_minus_ship_length):
 			get_node("Position2D").position.x =get_node("Position2D").position.x+ pixel_speed_per_frame
-	
+		
 		get_node("Position2D/Ship").speed_scale = 1
 		get_node("PositionOfShip/BigShipSprite").speed_scale = 1
 		if(ship_y_position>6):
@@ -210,6 +212,8 @@ func _process(delta):
 		
 	
 	else: #ship is paused
+		#if(get_node("TextDialogue").modulate == Color(1,1,1,1)):
+		var tween = get_node("Tween")
 		get_node("PositionOfShip/BigShipSprite").speed_scale = 0
 		get_node("Position2D/Ship").speed_scale = 0
 		

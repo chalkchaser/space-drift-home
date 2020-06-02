@@ -85,7 +85,7 @@ playing = true
 position = Vector2( 90.9123, 74.4122 )
 z_index = -1
 frames = SubResource( 2 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="TextDialogue" type="Node2D" parent="."]
@@ -101,6 +101,9 @@ margin_right = 166.644
 margin_bottom = 94.5909
 theme = SubResource( 3 )
 text = "dwefedefaeffafaf"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Text1" type="RichTextLabel" parent="TextDialogue"]
 margin_left = 19.3224
