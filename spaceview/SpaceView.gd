@@ -2,7 +2,7 @@ extends Node2D
 
 var distance = 0
 var sceen_width_minus_ship_length = 300
-var pixel_speed_per_frame = 0.04
+var pixel_speed_per_frame = 0.02
 var dict = {}
 var ship_y_position = 0
 var ship_moves_up = true
@@ -16,9 +16,10 @@ var mission_answer_text1 = ""
 var mission_answer_text2 = ""
 var mission_answer_text3 = ""
 var timer
-var current_mission_probability = 0.5
-var STARTING_MISSION_PROBABILITY = 0.5
+var current_mission_probability = 0.25
+var STARTING_MISSION_PROBABILITY = 0.25
 var is_end = false
+var pause_ship = false
 
 
 var scroll_offset = Vector2(0,0)
@@ -44,7 +45,7 @@ func _ready():
 
 	
 func generate_mission_dialogue(mission):
-
+	
 	print(mission.MissionName)	
 	mission_text = mission.Text
 	
@@ -92,7 +93,8 @@ func mission_tick():
 		var mission = generate_mission()
 		generate_mission_dialogue(mission)#these should be called
 		generate_answers(mission)
-		show_mission()             #in a mission generator instead
+		show_mission()          
+		pause_ship = true
 		print("mission has been generated with probability: "+str(current_mission_probability))
 	else: 
 		current_mission_probability = current_mission_probability * 1.5
@@ -183,32 +185,34 @@ func button_on_hover():
 		
 func _process(delta):
 	button_on_hover()
+	if(not pause_ship):
+		get_node("ParallaxLayer").scroll_offset = scroll_offset
+		get_node("ParallaxLayer2").scroll_offset = scroll_offset2
+		scroll_offset = scroll_offset + Vector2(- 0.04,0)
+		scroll_offset2 = scroll_offset2 + Vector2(-0.06, 0)
+		if(scroll_offset.x < -320):
+			scroll_offset = Vector2(0,0)
+		if(scroll_offset2.x < -320):
+			scroll_offset2 = Vector2(0,0)
+		if(get_node("Position2D").position.x<sceen_width_minus_ship_length):
+			get_node("Position2D").position.x =get_node("Position2D").position.x+ pixel_speed_per_frame
 	
-	get_node("ParallaxLayer").scroll_offset = scroll_offset
-	get_node("ParallaxLayer2").scroll_offset = scroll_offset2
-	scroll_offset = scroll_offset + Vector2(- 0.04,0)
-	scroll_offset2 = scroll_offset2 + Vector2(-0.06, 0)
-	if(scroll_offset.x < -320):
-		scroll_offset = Vector2(0,0)
-
-
-	if(scroll_offset2.x < -320):
-		scroll_offset2 = Vector2(0,0)
+		get_node("Position2D/Ship").speed_scale = 1
+		get_node("PositionOfShip/BigShipSprite").speed_scale = 1
+		if(ship_y_position>6):
+			ship_moves_up = false
+		if(ship_y_position < -6):
+			ship_moves_up = true
+		if(ship_moves_up):
+			ship_y_position = ship_y_position +0.1
+		else: ship_y_position = ship_y_position -0.1
+		get_node("PositionOfShip").position.y  = ship_y_position
 		
+	
+	else: #ship is paused
+		get_node("PositionOfShip/BigShipSprite").speed_scale = 0
+		get_node("Position2D/Ship").speed_scale = 0
 		
-	if(get_node("Position2D").position.x<sceen_width_minus_ship_length):
-		get_node("Position2D").position.x =get_node("Position2D").position.x+ pixel_speed_per_frame
-	
-	
-	if(ship_y_position>6):
-		ship_moves_up = false
-	if(ship_y_position < -6):
-		ship_moves_up = true
-	if(ship_moves_up):
-		ship_y_position = ship_y_position +0.1
-	else: ship_y_position = ship_y_position -0.1
-	get_node("PositionOfShip").position.y  = ship_y_position
-	
 
 func _on_Answer1_button_down():
 	print("button1 pressed")
@@ -247,6 +251,7 @@ func _on_ClickAll_button_down():
 	if(is_end == true):
 		is_end = false
 		get_node("TextDialogue").hide()	
+		pause_ship = false
 		if(end_to_be_handled == null):
 			print("nothing to be handled")
 		else:		
