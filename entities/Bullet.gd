@@ -32,6 +32,7 @@ func _process(delta):
 	for index in get_slide_count():
 		var collision = get_slide_collision(index)
 		if collision.collider.is_in_group("enemies"):
+			print("taths an enemy")
 			if(index == 0): #prevents multiple hits
 				collision.collider._is_hit()
 		queue_free()
