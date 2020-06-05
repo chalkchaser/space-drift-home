@@ -65,7 +65,7 @@ func _shoot():
 	if(can_shoot ):
 		#get_parent().get_parent().get_parent().get_node("CameraObject")._shake(0)
 		var new_bullet = bullet.instance()
-		var stage = get_parent().get_parent().get_parent()
+		var stage = get_tree().current_scene
 		stage.add_child(new_bullet)
 		new_bullet.position = stage.get_node("Player").get_node("WeaponPosition").get_global_position()
 		var current_player_pos = get_parent().get_parent().get_global_position()

@@ -1,0 +1,72 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://art_entities/slender_anim/slender_alien0000.png" type="Texture" id=1]
+[ext_resource path="res://art_entities/slender_anim/slender_alien0014.png" type="Texture" id=2]
+[ext_resource path="res://stages/SlenderAlien.gd" type="Script" id=3]
+[ext_resource path="res://art_entities/slender_anim/slender_alien0005.png" type="Texture" id=4]
+[ext_resource path="res://art_entities/slender_anim/slender_alien0006.png" type="Texture" id=5]
+[ext_resource path="res://art_entities/slender_anim/slender_alien0010.png" type="Texture" id=6]
+[ext_resource path="res://art_entities/slender_anim/slender_alien0013.png" type="Texture" id=7]
+[ext_resource path="res://art_entities/slender_anim/slender_alien0001.png" type="Texture" id=8]
+[ext_resource path="res://art_entities/slender_anim/slender_alien0007.png" type="Texture" id=9]
+[ext_resource path="res://art_entities/slender_anim/slender_alien0002.png" type="Texture" id=10]
+[ext_resource path="res://art_entities/slender_anim/slender_alien0008.png" type="Texture" id=11]
+[ext_resource path="res://art_entities/slender_anim/slender_alien0012.png" type="Texture" id=12]
+[ext_resource path="res://art_entities/slender_anim/slender_alien_shadow.png" type="Texture" id=13]
+[ext_resource path="res://art_entities/slender_anim/slender_alien0009.png" type="Texture" id=14]
+[ext_resource path="res://art_entities/slender_anim/slender_alien0004.png" type="Texture" id=15]
+[ext_resource path="res://art_entities/slender_anim/slender_alien0011.png" type="Texture" id=16]
+[ext_resource path="res://art_entities/slender_anim/slender_alien0003.png" type="Texture" id=17]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 17 ), ExtResource( 15 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 11 ), ExtResource( 14 ), ExtResource( 6 ), ExtResource( 16 ), ExtResource( 12 ), ExtResource( 7 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "attack",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 6.10527
+height = 7.51129
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 5.21825
+height = 1.30453
+
+[node name="SlenderAlien" type="KinematicBody2D" groups=[
+"enemies",
+]]
+position = Vector2( 158.473, 233.435 )
+collision_layer = 3
+script = ExtResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0.555801, -26.0193 )
+z_index = 1
+frames = SubResource( 1 )
+animation = "attack"
+speed_scale = 2.0
+playing = true
+
+[node name="Shadow" type="Sprite" parent="AnimatedSprite"]
+position = Vector2( 0.000202179, -0.000301361 )
+texture = ExtResource( 13 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -1.13402, -9.8103 )
+shape = SubResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2( 4.7847, -37.3906 )
+rotation = 1.5708
+shape = SubResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://entities/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://art_environment/icon.png" type="Texture" id=2]
@@ -7,41 +7,7 @@
 [ext_resource path="res://art_entities/mushroom.png" type="Texture" id=5]
 [ext_resource path="res://art_entities/enamy_jaydash.png" type="Texture" id=6]
 [ext_resource path="res://entities/Slime.tscn" type="PackedScene" id=7]
-[ext_resource path="res://art_entities/slender_anim/slender_alien0000.png" type="Texture" id=8]
-[ext_resource path="res://art_entities/slender_anim/slender_alien0002.png" type="Texture" id=9]
-[ext_resource path="res://art_entities/slender_anim/slender_alien0003.png" type="Texture" id=10]
-[ext_resource path="res://art_entities/slender_anim/slender_alien0001.png" type="Texture" id=11]
-[ext_resource path="res://art_entities/slender_anim/slender_alien0004.png" type="Texture" id=12]
-[ext_resource path="res://art_entities/slender_anim/slender_alien0007.png" type="Texture" id=13]
-[ext_resource path="res://art_entities/slender_anim/slender_alien0005.png" type="Texture" id=14]
-[ext_resource path="res://art_entities/slender_anim/slender_alien0006.png" type="Texture" id=15]
-[ext_resource path="res://art_entities/slender_anim/slender_alien0008.png" type="Texture" id=16]
-[ext_resource path="res://art_entities/slender_anim/slender_alien0009.png" type="Texture" id=17]
-[ext_resource path="res://art_entities/slender_anim/slender_alien0010.png" type="Texture" id=18]
-[ext_resource path="res://art_entities/slender_anim/slender_alien0011.png" type="Texture" id=19]
-[ext_resource path="res://art_entities/slender_anim/slender_alien0012.png" type="Texture" id=20]
-[ext_resource path="res://art_entities/slender_anim/slender_alien0014.png" type="Texture" id=21]
-[ext_resource path="res://art_entities/slender_anim/slender_alien0013.png" type="Texture" id=22]
-[ext_resource path="res://art_entities/slender_anim/slender_alien_shadow.png" type="Texture" id=23]
-[ext_resource path="res://art_effects/bullet_simple.png" type="Texture" id=24]
-[ext_resource path="res://stages/slender_anim_attack.gd" type="Script" id=25]
-[ext_resource path="res://stages/SlenderAlien.gd" type="Script" id=26]
-
-[sub_resource type="SpriteFrames" id=1]
-animations = [ {
-"frames": [ ExtResource( 8 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 13 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 22 ), ExtResource( 21 ) ],
-"loop": true,
-"name": "attack",
-"speed": 5.0
-} ]
-
-[sub_resource type="CapsuleShape2D" id=4]
-radius = 6.10527
-height = 7.51129
-
-[sub_resource type="CapsuleShape2D" id=3]
-radius = 5.21825
-height = 1.30453
+[ext_resource path="res://entities/SlenderAlien.tscn" type="PackedScene" id=8]
 
 [node name="DemoStage" type="Node"]
 
@@ -76,45 +42,4 @@ texture = ExtResource( 6 )
 
 [node name="Slime" parent="." instance=ExtResource( 7 )]
 
-[node name="SlenderAlien" type="KinematicBody2D" parent="." groups=[
-"enemies",
-]]
-position = Vector2( 120.122, -56.4674 )
-collision_layer = 3
-script = ExtResource( 26 )
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="SlenderAlien"]
-position = Vector2( -97.5346, 123.715 )
-frames = SubResource( 1 )
-animation = "attack"
-frame = 9
-speed_scale = 2.0
-playing = true
-
-[node name="Shadow" type="Sprite" parent="SlenderAlien/AnimatedSprite"]
-position = Vector2( 0.000202179, -0.000301361 )
-texture = ExtResource( 23 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SlenderAlien"]
-position = Vector2( -99.6233, 137.186 )
-shape = SubResource( 4 )
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="SlenderAlien"]
-position = Vector2( -94.3864, 112.944 )
-rotation = 1.5708
-shape = SubResource( 3 )
-
-[node name="slender_anim_attack" type="KinematicBody2D" parent="."]
-position = Vector2( 104.724, 78.5949 )
-script = ExtResource( 25 )
-
-[node name="shadow" type="Sprite" parent="slender_anim_attack"]
-self_modulate = Color( 0.14902, 0.105882, 0.105882, 1 )
-texture = ExtResource( 24 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="projectile" type="Sprite" parent="slender_anim_attack/shadow"]
-position = Vector2( 0, -40 )
-texture = ExtResource( 24 )
+[node name="SlenderAlien" parent="." instance=ExtResource( 8 )]
