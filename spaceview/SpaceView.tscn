@@ -77,6 +77,7 @@ texture = ExtResource( 3 )
 position = Vector2( 12.4378, 135.221 )
 frames = SubResource( 1 )
 animation = "ship_fly"
+frame = 2
 playing = true
 
 [node name="PositionOfShip" type="Position2D" parent="."]
@@ -85,7 +86,7 @@ playing = true
 position = Vector2( 90.9123, 74.4122 )
 z_index = -1
 frames = SubResource( 2 )
-frame = 3
+frame = 1
 playing = true
 
 [node name="TextDialogue" type="Node2D" parent="."]
