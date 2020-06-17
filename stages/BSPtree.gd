@@ -9,8 +9,8 @@ onready var node_list = [root]
 var bspnode = preload("res://BSPnode.gd")
 
 var matrix = []
-var width = 234
-var height = 100
+var width = 150
+var height = 120
 
 var number_of_splits = 4
 	
@@ -31,19 +31,13 @@ func _ready():
 	root.center =  Vector2(floor(width/2),floor(height/2))
 	root.size = Vector2(width,height)
 	root.start = root.center - root.size/2
-	print("root:")
-	print(root.size)
-	print(root.center)
+	#print("root:")
+	#print(root.size)
+	#print(root.center)
 
 	
-	split(root, number_of_splits)
-	print("left:")
-	print(root.get_child(0).size)
-	print(root.get_child(0).center)
-	print("right:")
-	print(root.get_child(1).size)
-	print(root.get_child(1).center)
-	
+	split_for(root, number_of_splits)
+	print_bsp_tree(root)
 	var node = bspnode.new()
 
 
@@ -51,8 +45,28 @@ func _ready():
 	
 	
 	root.add_node(node) # uses own function
+	
+	
+func print_bsp_tree(node):
+	for i in node.get_children():
+		if i.get_child_count() > 0:
+			print(i.size)
+			print_bsp_tree(i)
+		else:
+			print("leaf"+ str(i.size))	
+			
+func split_for(root_node, number):
+	var nodes_to_split = [root_node]#leaves
+	while(number>0):
+		var new_nodes_to_split = []
+		for node in nodes_to_split:
+			split(node)
+			new_nodes_to_split.append(node.get_child(0))
+			new_nodes_to_split.append(node.get_child(1))
+		nodes_to_split = new_nodes_to_split
+		number = number - 1
 
-func split(node, number):
+func split(node):
 	var center = node.center
 	var size = node.size
 	var start = node.start
