@@ -12,7 +12,7 @@ var matrix = []
 var width #sync this
 var height  #sync this
 
-var number_of_splits = 3
+var number_of_splits = 4
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,18 +23,13 @@ func _ready():
 
 	root.center =  Vector2(floor(width/2),floor(height/2))
 	root.size = Vector2(width,height)
-	root.start = root.center - root.size/2
+	root.start = root.center - Vector2(floor(root.size.x/2),floor(root.size.y/2))
 
-	
 	split_for(root, number_of_splits)
 	#print_bsp_tree(root)
-	var node = bspnode.new()
-
-
-
+	#var node = bspnode.new()
 	
-	
-	root.add_node(node) # uses own function
+	#root.add_node(node) # uses own function
 
 func get_leaves():
 	var leaf_list = []
@@ -72,35 +67,49 @@ func split(node):
 	var center = node.center
 	var size = node.size
 	var start = node.start
-	if(randi() % 2 == 0):#cut vertically
-		root.cut_vert = true
+	var random = rand_range(0.4, 0.6)
+	
+	if(node.size.x >= node.size.y):#cut vertically
+		var x1_split = round(node.size.x * random)
+		var x2_split = node.size.x - x1_split
 		
+		node.cut_vert = true
+	
 		#Always round down on left and upper part, else round up
 		var left = bspnode.new()
-		left.size = Vector2(floor(node.size.x/2),node.size.y)
-		left.center = 	node.center - Vector2(ceil(left.size.x/2),0)#reversed
+		left.size = Vector2(x1_split,node.size.y)
 		left.start = node.start
+		left.center = left.start + Vector2(floor(left.size.x/2), floor(left.size.y/2))
 		node.add_child(left)
 		
+		
+	
 		var right = bspnode.new()
-		right.size = Vector2(ceil(node.size.x/2),node.size.y)
-		right.center = 	node.center + Vector2(floor(right.size.x/2),0)#reversed
-		right.start = node.start + Vector2(left.size.x,0)#already rounded
+		right.size = Vector2(x2_split,node.size.y)
+		right.start = node.start + Vector2(x1_split, 0)#already rounded
+		right.center = right.start + Vector2(floor(right.size.x/2), floor(right.size.y/2))
 		node.add_child(right)
 		
 	else: #cut horizontally
-		root.cut_vert = false
-		var left = bspnode.new() #left in the tree but up in the map
-		left.size = Vector2(node.size.x ,floor(node.size.y/2))
-		left.center = 	node.center - Vector2(0, ceil(left.size.y/2))#reversed
+		var y1_split = round(node.size.y * random)
+		var y2_split = node.size.y - y1_split
+		node.cut_vert = false
+		
+		
+		var left = bspnode.new()
+		left.size = Vector2(node.size.x, y1_split)
 		left.start = node.start
+		left.center = left.start + Vector2(floor(left.size.x/2), floor(left.size.y/2))
 		node.add_child(left)
 		
+		
 		var right = bspnode.new()
-		right.size = Vector2(node.size.x ,ceil(node.size.y/2))
-		right.center = 	node.center + Vector2(0, floor(right.size.y/2))#reversed
-		right.start = node.start + Vector2(0,left.size.y)
+		right.size = Vector2(node.size.x, y2_split)
+		right.start = node.start + Vector2(0, y1_split)
+		right.center = right.start + Vector2(floor(right.size.x/2), floor(right.size.y/2))
 		node.add_child(right)
+	
+		
 
 	
 	
