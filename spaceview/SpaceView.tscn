@@ -86,7 +86,7 @@ playing = true
 position = Vector2( 90.9123, 74.4122 )
 z_index = -1
 frames = SubResource( 2 )
-frame = 1
+frame = 5
 playing = true
 
 [node name="TextDialogue" type="Node2D" parent="."]

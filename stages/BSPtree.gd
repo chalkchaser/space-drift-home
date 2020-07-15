@@ -9,35 +9,25 @@ onready var node_list = [root]
 var bspnode = preload("res://BSPnode.gd")
 
 var matrix = []
-var width = 150
-var height = 120
+var width #sync this
+var height  #sync this
 
-var number_of_splits = 4
+var number_of_splits = 3
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	width = self.get_parent().world_size.x
+	height = self.get_parent().world_size.y
+	
 	randomize()
-	
-	#for y in range(height):
-	#	matrix.append([])
-	#	matrix[y]=[]        
-	#	for x in range(width):
-	#		matrix[y].append([])
-	#		matrix[y][x]=0
-	
-	
-
 
 	root.center =  Vector2(floor(width/2),floor(height/2))
 	root.size = Vector2(width,height)
 	root.start = root.center - root.size/2
-	#print("root:")
-	#print(root.size)
-	#print(root.center)
 
 	
 	split_for(root, number_of_splits)
-	print_bsp_tree(root)
+	#print_bsp_tree(root)
 	var node = bspnode.new()
 
 
@@ -45,7 +35,19 @@ func _ready():
 	
 	
 	root.add_node(node) # uses own function
-	
+
+func get_leaves():
+	var leaf_list = []
+	return get_leaves_recursively(root, leaf_list)
+
+
+func get_leaves_recursively(node, leaf_list):
+	for i in node.get_children():
+		if i.get_child_count() > 0:
+			get_leaves_recursively(i,leaf_list)
+		else:
+			leaf_list.append(i)		
+	return leaf_list		
 	
 func print_bsp_tree(node):
 	for i in node.get_children():
@@ -53,7 +55,7 @@ func print_bsp_tree(node):
 			print(i.size)
 			print_bsp_tree(i)
 		else:
-			print("leaf"+ str(i.size))	
+			print("leaf"+ str(i.size) + "center@ " + str(i.center))	
 			
 func split_for(root_node, number):
 	var nodes_to_split = [root_node]#leaves
